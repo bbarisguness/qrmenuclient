@@ -10,15 +10,6 @@ export default async function CompanyLayout({ children }) {
     const categories = getCategories()
     return (
         <div>
-            <div className="menu">
-            <Link href={`/${company.slug}/kategori`}>Kategoriler</Link>
-                {categories.map((category)=> {
-                    return (
-                        <Link key={category.id} href={`/${company.slug}/kategori/${category.id}`}>{category.name}</Link>
-                    )
-                } )}
-            </div>
-            <hr />
             <main>{children}</main>
         </div>
     );

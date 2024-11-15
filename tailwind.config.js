@@ -11,7 +11,14 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
-    },
+      fontFamily: {
+        AlfaSlabOne: ['Alfa Slab One', 'serif'],
+        Poppins: ['Poppins', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-blue': 'linear-gradient(180deg, #3ABDFF 0%, #0C4FFA 100%)'
+      },
+    }
   },
   plugins: [],
 };
