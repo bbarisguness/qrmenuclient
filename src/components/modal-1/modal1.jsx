@@ -113,7 +113,7 @@ export default function Modal1() {
       >
         <Prop
           color={"#0af460"}
-          url={"/menu"}
+          url={"/jda/kategori"}
           name={"Menu'yü gör"}
           svg={
             <svg
