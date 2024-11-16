@@ -1,23 +1,43 @@
 import { getCategories } from "@/services/categoryService";
-import { getCompany } from "@/services/companyService";
+import { getCompanyHome } from "@/services/companyService";
 import Link from "next/link";
 import Modal1 from "@/components/modal-1/modal1";
 import Button from "@/components/button/Button";
+import { notFound } from "next/navigation";
 
 export const metadata = { title: "Durmuş Cafe" };
 
-export default async function Page() {
-  const company = getCompany();
+export default async function Page({ params }) {
+  const { company } = await params
+  const companyDetail = await getCompanyHome({ slug: company });
+
+
+  if (companyDetail?.data.length === 0) {
+    notFound()
+  }
+
+
+  function convertCompanyName() {
+    let string = ''
+    const cName = companyDetail?.data[0]?.name.split(' ')
+    cName.map((itm, i) => {
+      if (cName.length != i + 1) {
+        string += itm + "<br/>"
+      } else {
+        string += itm
+      }
+    })
+    return string
+  }
+
 
   return (
     <>
-      {/* <h1>Hoşgeldiniz: {company.name}</h1>
-       */}
       <div className="max-w-[600px] flex flex-col w-full relative bg-gradient-blue m-auto h-[100dvh] bg-no-repeat">
-        <Modal1 />
+        <Modal1 data={companyDetail?.data[0]?.buttons} />
         <div className="w-full h-[30%] relative flex items-center justify-center ">
           <h1 className="font-AlfaSlabOne font-normal text-[65px] text-white leading-[59.8px] text-center relative">
-            JDA <br /> COFFE
+            <div dangerouslySetInnerHTML={{ __html: convertCompanyName() }} />
           </h1>
         </div>
         <div className="w-full h-[70%] relative">
