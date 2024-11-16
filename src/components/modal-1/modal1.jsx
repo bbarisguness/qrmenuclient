@@ -26,7 +26,18 @@ export default function Modal1() {
   const handleCopy = async (textToCopy) => {
     setWifiCopied(true);
     try {
-      await navigator.clipboard.writeText(textToCopy);
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(textToCopy);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        textArea.style.position = "fixed"; // Görünmez yapmak için.
+        textArea.style.top = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
       setTimeout(() => {
         setWifiCopied(false);
       }, 1000);
@@ -34,6 +45,7 @@ export default function Modal1() {
       console.error("Kopyalama işlemi başarısız!", err);
     }
   };
+
 
   const handleClickMenuItem = (url) => {
     if (url) {
@@ -107,9 +119,8 @@ export default function Modal1() {
       )}
       <div
         ref={menuRef}
-        className={`w-full rounded-t-[40px] bg-white flex flex-col py-10 gap-[18px] px-12 absolute z-20 duration-500 ${
-          !isMenuActive ? "bottom-[-110%]" : "bottom-0"
-        }`}
+        className={`w-full rounded-t-[40px] bg-white flex flex-col py-10 gap-[18px] px-12 absolute z-20 duration-500 ${!isMenuActive ? "bottom-[-110%]" : "bottom-0"
+          }`}
       >
         <Prop
           color={"#0af460"}

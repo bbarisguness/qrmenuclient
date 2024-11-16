@@ -31,7 +31,7 @@ export default async function Page({ params }) {
             </div>
 
             <div className="mt-[17px] pl-[50px] pr-[50px] relative flex justify-center">
-                <img className="rounded-full w-[241px] h-[241px] object-cover object-center" src="https://mudavim.net/wp-content/uploads/2023/11/grungy.jpg" alt="" />
+                <img className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" src="https://mudavim.net/wp-content/uploads/2023/11/grungy.jpg" alt="" />
             </div>
 
             <div className="text-center mt-[50px] font-Poppins text-[28px] text-black font-semibold relative">
