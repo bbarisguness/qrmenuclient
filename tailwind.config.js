@@ -14,6 +14,7 @@ module.exports = {
       fontFamily: {
         AlfaSlabOne: ['Alfa Slab One', 'serif'],
         Poppins: ['Poppins', 'sans-serif'],
+        Sansita: ['Sansita', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-blue': 'linear-gradient(180deg, #3ABDFF 0%, #0C4FFA 100%)'
