@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Button from "../button/Button";
 import { useRouter } from "next/navigation";
 
-export default function Modal1({ data }) {
+export default function Modal1({ data, theme }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [wifiCopied, setWifiCopied] = useState(false);
   const menuRef = useRef(null);
@@ -113,7 +113,7 @@ export default function Modal1({ data }) {
 
   return (
     <div className="z-10 w-full h-full absolute overflow-hidden ">
-      <Button setIsMenuActive={setIsMenuActive} />
+      <Button theme={theme} setIsMenuActive={setIsMenuActive} />
       {isMenuActive && (
         <div className="w-full h-full absolute top-0 left-0 bottom-0 right-0 bg-black bg-opacity-50 z-10"></div>
       )}
@@ -143,7 +143,7 @@ export default function Modal1({ data }) {
         }
         <div
           onClick={() => setIsMenuActive(false)}
-          className="rounded-[30px] bg-[#1E5CCE] hover:bg-[#1e5cceb4] duration-500 cursor-pointer  h-[70px] justify-center items-center flex font-Poppins font-bold text-white text-[20px] "
+          className={`rounded-[30px] bg-[#${theme?.buttonBackgroundActiveColor}] hover:bg-[#${theme?.buttonBackgroundHoverColor}] duration-500 cursor-pointer  h-[70px] justify-center items-center flex font-Poppins font-bold text-[#${theme?.buttonBackgroundTextHoverColor}] text-[20px]`}
         >
           Geri dön
         </div>

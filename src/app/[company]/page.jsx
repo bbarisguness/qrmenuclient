@@ -5,11 +5,20 @@ import Modal1 from "@/components/modal-1/modal1";
 import Button from "@/components/button/Button";
 import { notFound } from "next/navigation";
 
-export const metadata = { title: "Durmuş Cafe" };
+export async function generateMetadata({ params }) {
+  const { company } = await params
+  const companyDetail = await getCompanyHome({ slug: company });
+
+  return {
+    title: companyDetail?.data[0]?.name
+  }
+}
 
 export default async function Page({ params }) {
   const { company } = await params
   const companyDetail = await getCompanyHome({ slug: company });
+  console.log(companyDetail);
+  
 
 
   if (companyDetail?.data.length === 0) {
@@ -34,7 +43,7 @@ export default async function Page({ params }) {
   return (
     <>
       <div className="max-w-[600px] flex flex-col w-full relative bg-gradient-blue m-auto h-[100dvh] bg-no-repeat">
-        <Modal1 data={companyDetail?.data[0]?.buttons} />
+        <Modal1 theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
         <div className="w-full h-[30%] relative flex items-center justify-center ">
           <h1 className="font-AlfaSlabOne font-normal text-[65px] text-white leading-[59.8px] text-center relative">
             <div dangerouslySetInnerHTML={{ __html: convertCompanyName() }} />

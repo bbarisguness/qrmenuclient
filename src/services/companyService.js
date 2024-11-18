@@ -7,7 +7,7 @@ function getCompany() {
 }
 
 async function getCompanyHome({ slug }) {
-    const response = await fetch(`${apiUrl}/companies?filters[slug][$eq]=${slug}&populate[buttons][sort][0]=line:asc`, {
+    const response = await fetch(`${apiUrl}/companies?filters[slug][$eq]=${slug}&populate[buttons][sort][0]=line:asc&populate[theme][sort][0]=id:asc`, {
         cache: 'no-store'
     })
     const data = await response.json()
