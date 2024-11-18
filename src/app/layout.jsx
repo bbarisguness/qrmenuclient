@@ -1,4 +1,6 @@
 import "./globals.css";
+import { GlobalProvider } from "@/context/GlobalContext";
+import { SideMenu } from "@/components/sideMenu/SideMenu";
 
 export const metadata = {
   title: "Grande Qr Menü",
@@ -9,7 +11,10 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="tr">
       <body>
-        {children}
+        <GlobalProvider>
+          <SideMenu />
+          {children}
+        </GlobalProvider>
       </body>
     </html>
   );
