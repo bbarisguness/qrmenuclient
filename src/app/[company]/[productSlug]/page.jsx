@@ -1,3 +1,4 @@
+import CategoryButton from "@/components/categoryButton";
 import { getProductById } from "@/services/productService";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -21,7 +22,7 @@ export default async function Page({ params }) {
     if (!(product.data)) {
         notFound()
     }
-    
+
     return (
         <div className="min-h-[100dvh] bg-[#F6F6F9] flex-1 justify-center items-center">
             <div className="max-w-[600px] bg-[#F6F6F9] w-full relative m-auto h-full">
@@ -33,7 +34,7 @@ export default async function Page({ params }) {
                             </svg>
                             <span className="text-[16px] font-semibold text-black font-Poppins">Geri dön</span>
                         </Link>
-                        {
+                        {/* {
                             product?.data?.category?.company?.logo?.url ?
                                 <div className="w-[72px] h-[72px]">
                                     <img width={'100%'} height={'100%'} src={product.data?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.category?.company?.logo?.url : null} alt="" />
@@ -44,7 +45,8 @@ export default async function Page({ params }) {
                                         <p className="font-AlfaSlabOne text-white text-[14px] leading-4">LOGO</p>
                                     </div>
                                 </div>
-                        }
+                        } */}
+                        <CategoryButton theme={product?.data?.category?.company?.theme} />
                     </div>
                 </div>
 

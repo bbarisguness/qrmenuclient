@@ -1,3 +1,4 @@
+import CategoryListItem from "@/components/categoryListItem";
 import { getCategoriesByCompanySlug } from "@/services/categoryService";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -50,21 +51,7 @@ export default async function Page({ params }) {
                 <div className="pt-[22px] pb-[22px] pl-[22px] pr-[22px]">
                     <div className="flex flex-wrap gap-[2%] gap-y-[15px]">
                         {categories?.data.map((item, index) => (
-                            <Link
-                                href={`/${categories?.data[0]?.company?.slug}/kategori/${item?.slug}`}
-                                key={index}
-                                className="w-[49%] cursor-pointer aspect-square border-[5px] border-[#ffffffe6] relative overflow-hidden group"
-                            >
-                                <img
-                                    className="object-center object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                                    src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item?.image?.url : null}
-                                    alt=""
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                                <div className="absolute bottom-3 w-full">
-                                    <p className="text-center text-[20px] text-white font-Poppins">{item.name}</p>
-                                </div>
-                            </Link>
+                            <CategoryListItem key={index} categories={categories} item={item} />
                         ))}
                     </div>
                 </div>

@@ -7,7 +7,7 @@ const GlobalContext = createContext();
 export const useGlobalContext = () => useContext(GlobalContext);
 
 export const GlobalProvider = ({ children }) => {
-    const [isMenuOpen, setMenuOpen] = useState(true);
+    const [isMenuOpen, setMenuOpen] = useState(false);
     const [activeMenuId, setActiveMenuId] = useState(1);
 
     const toggleMenu = () => setMenuOpen((prev) => !prev);

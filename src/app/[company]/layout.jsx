@@ -1,16 +1,18 @@
-import { getCategories } from "@/services/categoryService";
-import { getCompany } from "@/services/companyService";
-import Link from "next/link";
+import { GlobalProvider } from "@/context/GlobalContext";
+import { SideMenu } from "@/components/sideMenu/SideMenu";
+import { getCategoriesByCompanySlug } from "@/services/categoryService";
 
-export const metadata = { title: "Durmuş Cafe" };
+export default async function CompanyLayout({ children, params }) {
 
-export default async function CompanyLayout({ children }) {
+    const { company } = await params
+    const categories = await getCategoriesByCompanySlug({ slug: company })
 
-    const company = getCompany()
-    const categories = getCategories()
     return (
         <div>
-            <main>{children}</main>
+            <GlobalProvider>
+                <SideMenu categories={categories} />
+                {children}
+            </GlobalProvider>
         </div>
     );
 }
