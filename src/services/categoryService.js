@@ -6,7 +6,7 @@ function getCategories() {
 }
 
 async function getCategoriesByCompanySlug({ slug }) {
-    const response = await fetch(`${apiUrl}/categories?company=${slug}&populate[0]=image&populate[1]=company.logo`, {
+    const response = await fetch(`${apiUrl}/categories?company=${slug}&populate[image][fields][0]=*&populate[company][populate][0]=logo&populate[company][populate][1]=theme`, {
         cache: 'no-store'
     })
     const data = await response.json()

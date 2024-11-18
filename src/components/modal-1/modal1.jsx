@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Modal1({ data, theme }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [wifiCopied, setWifiCopied] = useState(false);
+  const [modalType, setModalType] = useState(0)
   const menuRef = useRef(null);
   const router = useRouter();
 
@@ -73,6 +74,24 @@ export default function Modal1({ data, theme }) {
     );
   };
 
+  const Circle2 = ({ color }) => {
+    return (
+      <>
+        <div
+          className={`w-6 h-6 rounded-full p-[1px] flex items-center justify-center relative bottom-[1.5px]`}
+          style={{ backgroundColor: color }}
+        >
+          <div className="w-[100%] h-[100%] bg-[white] rounded-full p-[5px]">
+            <div
+              className={`w-[100%] h-[100%] rounded-full`}
+              style={{ backgroundColor: color }}
+            ></div>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   const Prop = ({ name, svg, color, isLastItem = false, url = null, copyText = null }) => {
     return (
       <div className="flex items-center gap-3">
@@ -113,7 +132,7 @@ export default function Modal1({ data, theme }) {
 
   return (
     <div className="z-10 w-full h-full absolute overflow-hidden ">
-      <Button theme={theme} setIsMenuActive={setIsMenuActive} />
+      <Button setModalType={setModalType} theme={theme} setIsMenuActive={setIsMenuActive} />
       {isMenuActive && (
         <div className="w-full h-full absolute top-0 left-0 bottom-0 right-0 bg-black bg-opacity-50 z-10"></div>
       )}
@@ -123,27 +142,84 @@ export default function Modal1({ data, theme }) {
           }`}
       >
         {
-          data?.map((item, i) => {
-            if (item?.active) {
-              return (
-                <Prop
-                  key={i}
-                  color={item?.color}
-                  url={item?.url}
-                  name={item?.name}
-                  isLastItem={data?.length === i + 1}
-                  copyText={item?.copyText}
-                  svg={
-                    <div dangerouslySetInnerHTML={{ __html: item?.svg }} />
-                  }
-                />
-              )
-            }
-          })
+          modalType === 0 ?
+            data?.map((item, i) => {
+              if (item?.active) {
+                return (
+                  <Prop
+                    key={i}
+                    color={item?.color}
+                    url={item?.url}
+                    name={item?.name}
+                    isLastItem={data?.length === i + 1}
+                    copyText={item?.copyText}
+                    svg={
+                      <div dangerouslySetInnerHTML={{ __html: item?.svg }} />
+                    }
+                  />
+                )
+              }
+            }) :
+            <div>
+              <div className="flex items-center">
+                <div
+                  className="flex items-center gap-3 flex-1 pb-[26px] cursor-pointer border-opacity-30 border-black"
+                  style={{ borderBottomWidth: 1 }}
+                >
+                  <div
+                    className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
+                  >
+                    <Circle2 color={"black"} />
+                    <span>TR</span>
+                  </div>
+                  <div
+                    className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
+
+                  >
+                    <Circle2 color={"black"} />
+                    <span>EN</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 mt-[26px]">
+                <div
+                  className="flex items-center gap-3 flex-1 pb-[26px] cursor-pointer border-opacity-30 border-black"
+                >
+                  <div
+                    className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
+                  >
+                    <Circle2 color={"black"} />
+                    <span>TL</span>
+                  </div>
+                  <div
+                    className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
+
+                  >
+                    <Circle2 color={"black"} />
+                    <span>USD</span>
+                  </div>
+                  <div
+                    className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
+
+                  >
+                    <Circle2 color={"black"} />
+                    <span>EUR</span>
+                  </div>
+                  <div
+                    className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
+
+                  >
+                    <Circle2 color={"black"} />
+                    <span>GBP</span>
+                  </div>
+                </div>
+              </div>
+            </div>
         }
         <div
           onClick={() => setIsMenuActive(false)}
-          className={`rounded-[30px] bg-[#${theme?.buttonBackgroundActiveColor}] hover:bg-[#${theme?.buttonBackgroundHoverColor}] duration-500 cursor-pointer  h-[70px] justify-center items-center flex font-Poppins font-bold text-[#${theme?.buttonBackgroundTextHoverColor}] text-[20px]`}
+          style={{ backgroundColor: `#${theme.primaryColor}`, color: `#${theme.secondaryColor}` }}
+          className={`rounded-[30px] duration-500 cursor-pointer h-[70px] justify-center items-center flex font-Poppins font-bold text-[20px]`}
         >
           Geri dön
         </div>

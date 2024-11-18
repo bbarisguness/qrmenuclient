@@ -17,9 +17,6 @@ export async function generateMetadata({ params }) {
 export default async function Page({ params }) {
   const { company } = await params
   const companyDetail = await getCompanyHome({ slug: company });
-  console.log(companyDetail);
-  
-
 
   if (companyDetail?.data.length === 0) {
     notFound()

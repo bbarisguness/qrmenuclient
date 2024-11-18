@@ -23,7 +23,8 @@ export const SideMenu = ({ categories }) => {
       )}
       <div
         ref={menuRef}
-        className={`w-[80%] max-w-[600px] bg-[#1E5CCE] h-[100dvh] absolute duration-500 ${isMenuOpen ? "left-0" : "left-[-100%]"
+        style={{backgroundColor: `#${categories?.data[0]?.company?.theme?.primaryColor}`}}
+        className={`w-[80%] max-w-[600px] h-[100dvh] absolute duration-500 ${isMenuOpen ? "left-0" : "left-[-100%]"
           } top-0 z-20 flex flex-col`}
       >
         <div className="flex flex-[0.1] items-center gap-4 ml-8 mt-16">
@@ -45,7 +46,7 @@ export const SideMenu = ({ categories }) => {
             Kategori Sec
           </span>
         </div>
-        <div className="w-full flex flex-col flex-[0.9] py-6 gap-4">
+        <div className="w-full overflow-auto flex flex-col flex-[0.9] py-6 gap-4">
           {categories?.data?.map((item) => (
             <div
               onClick={() => handleClickMenuItem(item)}

@@ -89,7 +89,7 @@ export default async function Page({ params }) {
                 }
 
                 <div className="pb-[20px]">
-                    <Link href={`/${product?.data?.category?.company?.slug}/kategori/${product?.data?.category?.slug}`} className={`mt-[45px] relative  rounded-[30px] bg-[#${product?.data?.category?.company?.theme?.buttonBackgroundActiveColor}] h-[70px] mr-[50px] ml-[50px] justify-center items-center flex font-Poppins font-bold text-[#${product?.data?.category?.company?.theme?.buttonBackgroundActiveTextColor}] text-[20px] transition-all hover:bg-[#${product?.data?.category?.company?.theme?.buttonBackgroundHoverColor}]`}>
+                    <Link style={{ backgroundColor: `#${product?.data?.category?.company?.theme?.primaryColor}`, color: `#${product?.data?.category?.company?.theme?.secondaryColor}` }} href={`/${product?.data?.category?.company?.slug}/kategori/${product?.data?.category?.slug}`} className={"mt-[45px] relative  rounded-[30px] h-[70px] mr-[50px] ml-[50px] justify-center items-center flex font-Poppins font-bold text-[20px] transition-all"}>
                         Geri Dön
                     </Link>
                 </div>
