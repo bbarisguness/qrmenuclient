@@ -1,12 +1,12 @@
 export default function Button({ setIsMenuActive, theme, setModalType }) {
-  
+
   return (
     <div
       className="absolute bottom-10 w-full"
     >
       <div className="flex w-full gap-2">
         <div style={{ backgroundColor: `#${theme.secondaryColor}`, color: `#${theme?.primaryColor}` }} onClick={() => { setIsMenuActive(true); setModalType(0) }} className={`rounded-l-[30px] flex-[0.75] h-[70px] ml-[50px] justify-center items-center flex font-Poppins font-bold text-[20px] cursor-pointer`}>
-          {}
+          MENU
         </div>
         <div style={{ backgroundColor: `#${theme.settingColor}`, color: `$${theme?.secondaryColor}` }} onClick={() => { setIsMenuActive(true); setModalType(1) }} className={`rounded-r-[30px] flex-[0.25] h-[70px] mr-[50px]  justify-center items-center flex font-Poppins font-bold text-[20px] cursor-pointer`}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14" fill="none">
