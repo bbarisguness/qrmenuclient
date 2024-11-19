@@ -13,8 +13,8 @@ export async function generateMetadata({ params }) {
     }
 }
 
-export default async function Page({ params }) {
-
+export default async function Page({ params, searchParams }) {
+    const { lang } = await searchParams
     const { slug } = await params
     const { company } = await params
 
@@ -28,7 +28,7 @@ export default async function Page({ params }) {
         <div className="max-w-[600px] bg-[#EEE] w-full relative m-auto h-screen">
             <div className="w-full pt-[14px]" >
                 <div className="bg-[#F5F5F5] rounded-[20px] w-full h-[98px] flex items-center justify-between pl-[25px] pr-[25px]">
-                    <Link href={`/${products?.data[0]?.category?.company?.slug}/kategori`} className="flex">
+                    <Link href={`/${products?.data[0]?.category?.company?.slug}/kategori?lang=${lang || 'tr'}`} className="flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
@@ -58,7 +58,7 @@ export default async function Page({ params }) {
 
             <div className="bg-[#E4E4E4] w-full mt-[17px] pt-[14px] pb-[14px] rounded-l-[30px] rounded-r-[30px]">
                 {products.data.map((item, i) => (
-                    <Link key={i} href={`/${products?.data[0]?.category?.company?.slug}/${item.documentId}`} className="block w-full pl-[25px] pr-[25px] mb-[15px] group">
+                    <Link key={i} href={`/${products?.data[0]?.category?.company?.slug}/${item.documentId}?lang=${lang || 'tr'}`} className="block w-full pl-[25px] pr-[25px] mb-[15px] group">
                         <div className="flex items-center">
                             <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.url : null} alt="" />
                             <div className="pl-[16px] pr-[16px]">

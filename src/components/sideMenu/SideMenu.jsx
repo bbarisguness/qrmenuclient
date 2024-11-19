@@ -1,11 +1,14 @@
 "use client";
 import { useGlobalContext } from "@/context/GlobalContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useRef } from "react";
 
 export const SideMenu = ({ categories }) => {
   const router = useRouter()
   const menuRef = useRef(null);
+  const searchParams = useSearchParams()
+  const currentParams = new URLSearchParams(searchParams.toString());
+  const param = currentParams.size !== 0 ? currentParams.toString() : 'lang=tr'
 
   const { activeMenuId, isMenuOpen, toggleActiveMenu, toggleMenu } =
     useGlobalContext();
@@ -13,7 +16,7 @@ export const SideMenu = ({ categories }) => {
   const handleClickMenuItem = (item) => {
     toggleActiveMenu(item?.id);
     toggleMenu();
-    router.push(`/${item?.company?.slug}/kategori/${item?.slug}`)
+    router.push(`/${item?.company?.slug}/kategori/${item?.slug}?${param}`)
   };
 
   return (

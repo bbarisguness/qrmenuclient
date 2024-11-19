@@ -2,7 +2,9 @@
 
 import { useState, useRef, useEffect } from "react";
 import Button from "../button/Button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import RadioButton from "../radioButton";
+import { useGlobalContext } from "@/context/GlobalContext";
 
 export default function Modal1({ data, theme }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
@@ -10,6 +12,9 @@ export default function Modal1({ data, theme }) {
   const [modalType, setModalType] = useState(0)
   const menuRef = useRef(null);
   const router = useRouter();
+  const searchParams = useSearchParams()
+  const currentParams = new URLSearchParams(searchParams.toString());
+  const { language, setLanguage } = useGlobalContext();
 
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -50,7 +55,7 @@ export default function Modal1({ data, theme }) {
 
   const handleClickMenuItem = ({ url, copyText }) => {
     if (url) {
-      router.push(url);
+      router.push(`${url}?${currentParams.toString()}`);
     } else {
       handleCopy(copyText);
     }
@@ -91,6 +96,7 @@ export default function Modal1({ data, theme }) {
       </>
     );
   };
+
 
   const Prop = ({ name, svg, color, isLastItem = false, url = null, copyText = null }) => {
     return (
@@ -169,15 +175,14 @@ export default function Modal1({ data, theme }) {
                   <div
                     className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
                   >
-                    <Circle2 color={"black"} />
-                    <span>TR</span>
+                    {/* <Circle2 color={"black"} /> */}
+                    <RadioButton isChecked={language === 'tr' ? true : false} color={"black"} name={"tr"} setLanguage={setLanguage} />
                   </div>
                   <div
                     className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
 
                   >
-                    <Circle2 color={"black"} />
-                    <span>EN</span>
+                    <RadioButton isChecked={language === 'en' ? true : false} color={"black"} name={"en"} setLanguage={setLanguage} />
                   </div>
                 </div>
               </div>

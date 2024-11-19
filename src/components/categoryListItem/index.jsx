@@ -1,13 +1,18 @@
 "use client"
 import Link from "next/link"
 import { useGlobalContext } from '@/context/GlobalContext';
+import { useSearchParams } from "next/navigation";
 
 export default function CategoryListItem({ categories, item }) {
     const { toggleActiveMenu } = useGlobalContext();
+    const searchParams = useSearchParams();
+    const currentParams = new URLSearchParams(searchParams.toString());
+    const param = currentParams?.size !== 0 ? currentParams.toString() : 'lang=tr'
+    
     return (
         <Link
             onClick={() => toggleActiveMenu(item?.id)}
-            href={`/${categories?.data[0]?.company?.slug}/kategori/${item?.slug}`}
+            href={`/${categories?.data[0]?.company?.slug}/kategori/${item?.slug}?${param}`}
             className="w-[49%] cursor-pointer aspect-square border-[5px] border-[#ffffffe6] relative overflow-hidden group"
         >
             <img

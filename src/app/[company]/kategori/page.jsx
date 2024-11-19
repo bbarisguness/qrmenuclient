@@ -3,7 +3,9 @@ import { getCategoriesByCompanySlug } from "@/services/categoryService";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params, searchParams }) {
+    const { lang } = await searchParams
+    
     const { company } = await params
     const categories = await getCategoriesByCompanySlug({ slug: company })
 
@@ -13,9 +15,10 @@ export async function generateMetadata({ params }) {
 }
 
 
-export default async function Page({ params }) {
+export default async function Page({ params, searchParams }) {
     const { company } = await params
-    const categories = await getCategoriesByCompanySlug({ slug: company })
+    const { lang } = await searchParams
+    const categories = await getCategoriesByCompanySlug({ slug: company, lang: lang || 'tr' })
 
     if (categories?.data?.length === 0) {
         notFound()
@@ -26,7 +29,7 @@ export default async function Page({ params }) {
         <div className="max-w-[600px] bg-[#EEE] w-full relative m-auto h-screen">
             <div className="w-full pt-[14px]" >
                 <div className="bg-[#F5F5F5] rounded-[20px] w-full h-[98px] flex items-center justify-between pl-[25px] pr-[25px]">
-                    <Link href={`/${categories?.data[0]?.company?.slug}`} className="flex">
+                    <Link href={`/${categories?.data[0]?.company?.slug}?lang=${lang || 'tr'}`} className="flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
