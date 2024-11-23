@@ -1,27 +1,15 @@
-import { products } from "@/data/productData";
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
-//--------
-function getProduct(id) {
-  return products.find((item) => item.id == id);
-}
-function getProducts(categoryId) {
-  return products.filter((item) => item.categoryId == categoryId);
-}
-
-
-
-
-async function getProductsByCategorySlug({ slug, company }) {
-  const response = await fetch(`${apiUrl}/products?category=${slug}&company=${company}&populate[category][populate][0]=image&populate[category][populate][1]=company.logo&populate[image][fields][0]=*`, {
+async function getProductsByCategorySlug({ slug, company, lang = "tr" }) {
+  const response = await fetch(`${apiUrl}/products?category=${slug}&company=${company}&populate[image][fields][0]=*&populate[contents][sort][0]=line:asc&populate[category][populate][image][fields][0]=*&populate[category][populate][company][populate][0]=logo&populate[category][populate][company][populate][1]=theme&locale=${lang}`, {
     cache: 'no-store'
   })
   const data = await response.json()
   return data
 }
 
-async function getProductById({ id, company }) {
-  const response = await fetch(`${apiUrl}/products/${id}?company=${company}&populate[category][populate][company][populate][0]=logo&populate[category][populate][company][populate][1]=theme&populate[image][fields][0]=*&populate[contents][sort][0]=line:asc`, {
+async function getProductById({ id, company, lang = 'tr' }) {
+  const response = await fetch(`${apiUrl}/products/${id}?company=${company}&populate[category][populate][company][populate][0]=logo&populate[category][populate][company][populate][1]=theme&populate[image][fields][0]=*&populate[contents][sort][0]=line:asc&locale=${lang}`, {
     cache: 'no-store'
   })
   const data = await response.json()
@@ -29,4 +17,4 @@ async function getProductById({ id, company }) {
 }
 
 
-export { getProduct, getProducts, getProductsByCategorySlug, getProductById };
+export { getProductsByCategorySlug, getProductById };

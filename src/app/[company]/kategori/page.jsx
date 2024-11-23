@@ -1,13 +1,12 @@
 import CategoryListItem from "@/components/categoryListItem";
 import { getCategoriesByCompanySlug } from "@/services/categoryService";
+import { getGlobalVariables } from "@/services/globalVariablesService";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({ params, searchParams }) {
-    const { lang } = await searchParams
-    
+export async function generateMetadata({ params }) {
     const { company } = await params
-    const categories = await getCategoriesByCompanySlug({ slug: company })
+    const categories = await getCategoriesByCompanySlug({ slug: company, lang: 'tr' })
 
     return {
         title: `${categories?.data[0]?.company?.name} - Kategoriler`
@@ -18,6 +17,8 @@ export async function generateMetadata({ params, searchParams }) {
 export default async function Page({ params, searchParams }) {
     const { company } = await params
     const { lang } = await searchParams
+
+    const globalVariables = await getGlobalVariables({ lang: lang })
     const categories = await getCategoriesByCompanySlug({ slug: company, lang: lang || 'tr' })
 
     if (categories?.data?.length === 0) {
@@ -33,7 +34,7 @@ export default async function Page({ params, searchParams }) {
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <span className="text-[16px] font-semibold text-black font-Poppins">Ana menüye dön</span>
+                        <span className="text-[16px] font-semibold text-black font-Poppins">{globalVariables?.data?.goBackToHomePageButtonText}</span>
                     </Link>
                     {
                         categories?.data[0]?.company?.logo?.url ?

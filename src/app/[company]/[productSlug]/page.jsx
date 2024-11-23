@@ -1,7 +1,10 @@
 import CategoryButton from "@/components/categoryButton";
+import ProductPrice from "@/components/productPrice";
 import { SideMenu } from "@/components/sideMenu/SideMenu";
 import { getCategoriesByCompanySlug } from "@/services/categoryService";
+import { getGlobalVariables } from "@/services/globalVariablesService";
 import { getProductById } from "@/services/productService";
+import { getTcmb } from "@/services/tcmbService";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -20,8 +23,10 @@ export default async function Page({ params, searchParams }) {
     const { productSlug } = await params
     const { company } = await params
 
-    const product = await getProductById({ id: productSlug, company: company })
+    const product = await getProductById({ id: productSlug, company: company, lang: lang })
     const categories = await getCategoriesByCompanySlug({ slug: company, lang: lang })
+    const globalVariables = await getGlobalVariables({ lang: lang })
+    const tcmb = await getTcmb()
 
     if (!(product.data)) {
         notFound()
@@ -29,7 +34,7 @@ export default async function Page({ params, searchParams }) {
 
     return (
         <>
-            <SideMenu categories={categories} />
+            <SideMenu categoryTitle={globalVariables?.data?.selectCategoryText} categories={categories} />
             <div className="min-h-[100dvh] bg-[#F6F6F9] flex-1 justify-center items-center">
                 <div className="max-w-[600px] bg-[#F6F6F9] w-full relative m-auto h-full">
                     <div className="w-full pt-[14px]" >
@@ -38,7 +43,7 @@ export default async function Page({ params, searchParams }) {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
-                                <span className="text-[16px] font-semibold text-black font-Poppins">Geri dön</span>
+                                <span className="text-[16px] font-semibold text-black font-Poppins">{globalVariables?.data?.backButtonText}</span>
                             </Link>
                             {/* {
                             product?.data?.category?.company?.logo?.url ?
@@ -64,13 +69,14 @@ export default async function Page({ params, searchParams }) {
                         {product?.data?.name}
                     </div>
 
-                    <div className="text-center mt-[15px] font-Poppins text-[22px] text-[#1E5CCE] font-semibold relative">
+                    {/* <div className="text-center mt-[15px] font-Poppins text-[22px] text-[#1E5CCE] font-semibold relative">
                         {product?.data?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} TL
-                    </div>
+                    </div> */}
+                    <ProductPrice tcmb={tcmb} price={product?.data?.price} list={false} />
 
                     <div className="mt-[40px] pl-[53px] pr-[53px] relative">
                         <div className="text-[17px] font-semibold text-black font-Poppins">
-                            Ürün Hakkında
+                            {globalVariables?.data?.aboutProductText}
                         </div>
                         <div className="text-[15px] mt-[7px] font-normal text-black font-Poppins opacity-50">
                             {product?.data?.longDescription}
@@ -80,7 +86,7 @@ export default async function Page({ params, searchParams }) {
                         product?.data?.contents.length !== 0 &&
                         <div className="mt-[24px] pl-[53px] pr-[53px] relative">
                             <div className="text-[17px] font-semibold text-black font-Poppins">
-                                İçindekiler
+                                {globalVariables?.data?.contentsText}
                             </div>
                             {
                                 product?.data?.contents?.map((item, i) => {
@@ -96,7 +102,7 @@ export default async function Page({ params, searchParams }) {
 
                     <div className="pb-[20px]">
                         <Link style={{ backgroundColor: `#${product?.data?.category?.company?.theme?.primaryColor}`, color: `#${product?.data?.category?.company?.theme?.secondaryColor}` }} href={`/${product?.data?.category?.company?.slug}/kategori/${product?.data?.category?.slug}?lang=${lang || 'tr'}`} className={"mt-[45px] relative  rounded-[30px] h-[70px] mr-[50px] ml-[50px] justify-center items-center flex font-Poppins font-bold text-[20px] transition-all"}>
-                            Geri Dön
+                            {globalVariables?.data?.backButtonText}
                         </Link>
                     </div>
                 </div>

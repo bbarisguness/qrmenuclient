@@ -3,7 +3,7 @@ import { useGlobalContext } from "@/context/GlobalContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef } from "react";
 
-export const SideMenu = ({ categories }) => {
+export const SideMenu = ({ categories, categoryTitle }) => {
   const router = useRouter()
   const menuRef = useRef(null);
   const searchParams = useSearchParams()
@@ -26,7 +26,7 @@ export const SideMenu = ({ categories }) => {
       )}
       <div
         ref={menuRef}
-        style={{backgroundColor: `#${categories?.data[0]?.company?.theme?.primaryColor}`}}
+        style={{ backgroundColor: `#${categories?.data[0]?.company?.theme?.primaryColor}` }}
         className={`w-[80%] max-w-[600px] h-[100dvh] absolute duration-500 ${isMenuOpen ? "left-0" : "left-[-100%]"
           } top-0 z-20 flex flex-col`}
       >
@@ -46,7 +46,7 @@ export const SideMenu = ({ categories }) => {
             />
           </svg>
           <span className="font-Poppins font-bold text-white text-[24px]">
-            Kategori Sec
+            {categoryTitle}
           </span>
         </div>
         <div className="w-full overflow-auto flex flex-col flex-[0.9] py-6 gap-4">

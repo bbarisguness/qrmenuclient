@@ -5,8 +5,9 @@ import Button from "../button/Button";
 import { useRouter, useSearchParams } from "next/navigation";
 import RadioButton from "../radioButton";
 import { useGlobalContext } from "@/context/GlobalContext";
+import RadioButtonCurrency from "../radioButtonCurrency";
 
-export default function Modal1({ data, theme }) {
+export default function Modal1({ data, theme, globalVariables, languages }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [wifiCopied, setWifiCopied] = useState(false);
   const [modalType, setModalType] = useState(0)
@@ -14,7 +15,7 @@ export default function Modal1({ data, theme }) {
   const router = useRouter();
   const searchParams = useSearchParams()
   const currentParams = new URLSearchParams(searchParams.toString());
-  const { language, setLanguage } = useGlobalContext();
+  const { language, setLanguage, currencyType, setCurrencyType } = useGlobalContext();
 
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -138,7 +139,7 @@ export default function Modal1({ data, theme }) {
 
   return (
     <div className="z-10 w-full h-full absolute overflow-hidden ">
-      <Button setModalType={setModalType} theme={theme} setIsMenuActive={setIsMenuActive} />
+      <Button buttonText={globalVariables?.data?.homePageBottomButtonText} setModalType={setModalType} theme={theme} setIsMenuActive={setIsMenuActive} />
       {isMenuActive && (
         <div className="w-full h-full absolute top-0 left-0 bottom-0 right-0 bg-black bg-opacity-50 z-10"></div>
       )}
@@ -172,50 +173,43 @@ export default function Modal1({ data, theme }) {
                   className="flex items-center gap-3 flex-1 pb-[26px] cursor-pointer border-opacity-30 border-black"
                   style={{ borderBottomWidth: 1 }}
                 >
-                  <div
-                    className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
-                  >
-                    {/* <Circle2 color={"black"} /> */}
-                    <RadioButton isChecked={language === 'tr' ? true : false} color={"black"} name={"tr"} setLanguage={setLanguage} />
-                  </div>
-                  <div
-                    className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
-
-                  >
-                    <RadioButton isChecked={language === 'en' ? true : false} color={"black"} name={"en"} setLanguage={setLanguage} />
-                  </div>
+                  {
+                    languages?.map((item, i) => {
+                      return (
+                        <div
+                          key={i}
+                          className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
+                        >
+                          <RadioButton isChecked={language === item ? true : false} color={"black"} name={item} setLanguage={setLanguage} />
+                        </div>
+                      )
+                    })
+                  }
                 </div>
               </div>
-              <div className="flex items-center gap-3 mt-[26px]">
+              <div className="flex items-center mt-[26px]">
                 <div
-                  className="flex items-center gap-3 flex-1 pb-[26px] cursor-pointer border-opacity-30 border-black"
+                  className="flex items-center gap-3 flex-1 pb-[26px] cursor-pointer"
                 >
                   <div
                     className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
                   >
-                    <Circle2 color={"black"} />
-                    <span>TL</span>
+                    <RadioButtonCurrency isChecked={currencyType === 'tl' ? true : false} color={"black"} name={"tl"} setCurrencyType={setCurrencyType} />
                   </div>
                   <div
                     className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
-
                   >
-                    <Circle2 color={"black"} />
-                    <span>USD</span>
+                    <RadioButtonCurrency isChecked={currencyType === 'usd' ? true : false} color={"black"} name={"usd"} setCurrencyType={setCurrencyType} />
                   </div>
                   <div
                     className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
-
                   >
-                    <Circle2 color={"black"} />
-                    <span>EUR</span>
+                    <RadioButtonCurrency isChecked={currencyType === 'gbp' ? true : false} color={"black"} name={"gbp"} setCurrencyType={setCurrencyType} />
                   </div>
                   <div
                     className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
-
                   >
-                    <Circle2 color={"black"} />
-                    <span>GBP</span>
+                    <RadioButtonCurrency isChecked={currencyType === 'eur' ? true : false} color={"black"} name={"eur"} setCurrencyType={setCurrencyType} />
                   </div>
                 </div>
               </div>
@@ -226,9 +220,9 @@ export default function Modal1({ data, theme }) {
           style={{ backgroundColor: `#${theme.primaryColor}`, color: `#${theme.secondaryColor}` }}
           className={`rounded-[30px] duration-500 cursor-pointer h-[70px] justify-center items-center flex font-Poppins font-bold text-[20px]`}
         >
-          Geri dön
+          {globalVariables?.data?.backButtonText}
         </div>
       </div>
-    </div>
+    </div >
   );
 }

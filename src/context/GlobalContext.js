@@ -13,18 +13,22 @@ export const GlobalProvider = ({ children }) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [activeMenuId, setActiveMenuId] = useState(1);
     const [language, setLanguage] = useState('');
+    const [currencyType, setCurrencyType] = useState('tl');
 
     useEffect(() => {
         const lang = localStorage.getItem('language') || 'tr'
-        router.push(`?lang=${lang?.toString() || 'tr'}`);
+        localStorage.setItem('language', lang)
+        router.push(`?lang=${lang?.toString()}`);
         setLanguage(lang)
-    }, [])
+    }, [language])
+
 
     useEffect(() => {
-        const lang = localStorage.getItem('language') || 'tr'
-        router.push(`?lang=${lang?.toString() || 'tr'}`);
-        localStorage.setItem('language', language)
-    }, [language])
+        const currency = localStorage.getItem('currencyType') || 'tl'
+        localStorage.setItem('currencyType', currency)
+        setCurrencyType(currency)
+    }, [currencyType])
+
 
 
 
@@ -32,7 +36,7 @@ export const GlobalProvider = ({ children }) => {
     const toggleActiveMenu = (menuId) => setActiveMenuId(menuId);
 
     return (
-        <GlobalContext.Provider value={{ isMenuOpen, activeMenuId, language, toggleMenu, toggleActiveMenu, setLanguage }}>
+        <GlobalContext.Provider value={{ isMenuOpen, activeMenuId, language, currencyType, toggleMenu, toggleActiveMenu, setLanguage, setCurrencyType }}>
             {children}
         </GlobalContext.Provider>
     );

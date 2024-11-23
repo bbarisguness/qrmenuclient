@@ -1,9 +1,7 @@
-import { getCategories } from "@/services/categoryService";
 import { getCompanyHome } from "@/services/companyService";
-import Link from "next/link";
 import Modal1 from "@/components/modal-1/modal1";
-import Button from "@/components/button/Button";
 import { notFound } from "next/navigation";
+import { getGlobalVariables } from "@/services/globalVariablesService";
 
 export async function generateMetadata({ params }) {
   const { company } = await params
@@ -14,10 +12,13 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params, searchParams }) {
   const { company } = await params
-  const companyDetail = await getCompanyHome({ slug: company });
-
+  const { lang } = await searchParams
+  const companyDetail = await getCompanyHome({ slug: company, lang: lang });
+  const globalVariables = await getGlobalVariables({ lang: lang })
+  const languages = [companyDetail.data[0].locale, ...companyDetail.data[0].localizations.map((itm) => itm.locale)]
+  
   if (companyDetail?.data.length === 0) {
     notFound()
   }
@@ -39,8 +40,8 @@ export default async function Page({ params }) {
 
   return (
     <>
-      <div className="max-w-[600px] flex flex-col w-full relative bg-gradient-blue m-auto h-[100dvh] bg-no-repeat">
-        <Modal1 theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
+      {/* <div className="max-w-[600px] flex flex-col w-full relative bg-gradient-blue m-auto h-[100dvh] bg-no-repeat">
+        <Modal1 globalVariables={globalVariables} theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
         <div className="w-full h-[30%] relative flex items-center justify-center ">
           <h1 className="font-AlfaSlabOne font-normal text-[65px] text-white leading-[59.8px] text-center relative">
             <div dangerouslySetInnerHTML={{ __html: convertCompanyName() }} />
@@ -62,16 +63,24 @@ export default async function Page({ params }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      {/* <div style={{ backgroundImage: "url(jdaarkaplan.svg)", backgroundSize: '100% 100%' }} className="max-w-[600px] flex flex-col w-full relative m-auto h-[100dvh] bg-no-repeat">
-        <Modal1 theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
+      {/* <div style={{ backgroundImage: "url(jdaarkaplan.svg)", backgroundSize: 'cover',bacp }} className="max-w-[600px] flex flex-col w-full relative m-auto h-[100dvh] bg-no-repeat">
+        <Modal1 globalVariables={globalVariables} theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
         <div className="w-full h-[30%] relative flex items-center justify-center ">
           <h1 className="font-AlfaSlabOne font-normal text-[65px] text-white leading-[59.8px] text-center relative">
             <div dangerouslySetInnerHTML={{ __html: convertCompanyName() }} />
           </h1>
         </div>
       </div> */}
+      <div className="max-w-[600px] flex flex-col w-full relative m-auto h-[100dvh] bg-no-repeat">
+        <Modal1 languages={languages} globalVariables={globalVariables} theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
+        <div style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${companyDetail?.data[0]?.banner?.url})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', zIndex: -1 }} className="relative top-0 left-0 w-full h-full">
+          <h1 className="font-AlfaSlabOne font-normal text-[65px] text-white leading-[59.8px] text-center relative mt-[30px]">
+            <div dangerouslySetInnerHTML={{ __html: convertCompanyName() }} />
+          </h1>
+        </div>
+      </div >
     </>
   );
 }
