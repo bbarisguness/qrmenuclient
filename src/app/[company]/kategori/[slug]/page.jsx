@@ -3,6 +3,7 @@ import ProductPrice from "@/components/productPrice";
 import { getGlobalVariables } from "@/services/globalVariablesService";
 import { getProductsByCategorySlug } from "@/services/productService";
 import { getTcmb } from "@/services/tcmbService";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -21,8 +22,6 @@ export default async function Page({ params, searchParams }) {
     const { lang } = await searchParams
     const { slug } = await params
     const { company } = await params
-
-    const listType = 0
 
     const products = await getProductsByCategorySlug({ slug: slug, company: company, lang: lang })
     const globalVariables = await getGlobalVariables({ lang: lang })
@@ -45,8 +44,9 @@ export default async function Page({ params, searchParams }) {
 
                     {
                         products?.data[0]?.category?.company?.logo?.url ?
-                            <div className="w-[72px] h-[72px]">
-                                <img width={'100%'} height={'100%'} src={products?.data[0]?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + products?.data[0]?.category?.company?.logo?.url : null} alt="" />
+                            <div className="w-[72px] h-[72px] relative">
+                                {/* <img width={'100%'} height={'100%'} src={products?.data[0]?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + products?.data[0]?.category?.company?.logo?.url : null} alt="" /> */}
+                                <Image className="rounded-[10px]" priority={true} alt="logo" width={72} height={72} src={products?.data[0]?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + products?.data[0]?.category?.company?.logo?.url : null} />
                             </div> :
                             <div>
                                 <div className="w-[72px] h-[72px] relative rounded-full bg-[#1374E0] flex flex-col justify-center pl-[10px]">
@@ -59,20 +59,33 @@ export default async function Page({ params, searchParams }) {
                 </div>
             </div>
 
-            <div className={`w-full h-full bg-center bg-no-repeat bg-cover max-h-[182px] mt-[17px] rounded-l-[30px] rounded-r-[30px] relative overflow-hidden flex items-center justify-center`} style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${products?.data[0]?.category?.image?.url})` }}>
+            {/* <div className={`w-full h-full bg-center bg-no-repeat bg-cover max-h-[182px] mt-[17px] rounded-l-[30px] rounded-r-[30px] relative overflow-hidden flex items-center justify-center`} style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${products?.data[0]?.category?.image?.url})` }}>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/40 to-transparent"></div>
                 <h1 className="text-center text-white text-[32px] font-normal font-Sansita drop-shadow-md relative">{products?.data[0]?.category?.name}</h1>
+            </div> */}
+            <div className="w-full h-full max-h-[182px] mt-[17px] rounded-l-[30px] rounded-r-[30px] relative overflow-hidden flex items-center justify-center">
+                <Image
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${products?.data[0]?.category?.image?.formats?.medium?.url ? products?.data[0]?.category?.image?.formats?.medium?.url : products?.data[0]?.category?.image?.url}`}
+                    alt={products?.data[0]?.category?.name || 'Kategori Görseli'}
+                    width={600}
+                    height={182}
+                    priority={true}
+                    className="rounded-l-[30px] object-cover rounded-r-[30px] absolute"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/40 to-transparent"></div>
+                <h1 className="text-center text-white text-[32px] font-normal font-Sansita drop-shadow-md relative">
+                    {products?.data[0]?.category?.name}
+                </h1>
             </div>
 
             <div className="bg-[#E4E4E4] w-full mt-[17px] pt-[14px] pb-[14px] rounded-l-[30px] rounded-r-[30px]">
-
-
                 {
                     products?.data[0]?.category?.company?.productDetailPage === true ?
                         products.data.map((item, i) => (
                             <Link key={i} href={`/${products?.data[0]?.category?.company?.slug}/${item.documentId}?lang=${lang || 'tr'}`} className="block w-full pl-[25px] pr-[25px] mb-[15px] group">
                                 <div className="flex items-center">
-                                    <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.url : null} alt="" />
+                                    {/* <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.url : null} alt="" /> */}
+                                    <Image alt={item.image.hash} className="w-[80px] h-[80px] object-cover rounded-[15px]" width={80} height={80} src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.formats.thumbnail.url : null} />
                                     <div className="pl-[16px] pr-[16px]">
                                         <p className="font-Poppins text-[16px] font-medium mb-[8px] text-[#172B4D]">{item.name}</p>
                                         <div>
