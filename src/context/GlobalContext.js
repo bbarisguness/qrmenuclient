@@ -25,6 +25,7 @@ export const GlobalProvider = ({ children }) => {
     // }, [language])
 
     useEffect(() => {
+        localStorage.removeItem('language')
         const storedLang = localStorage.getItem('language');
         const lang = storedLang ? JSON.parse(storedLang).name === path ? JSON.parse(storedLang).lang : 'tr' : 'tr';
         localStorage.setItem('language', JSON.stringify({ name: path, lang: lang }));
