@@ -17,11 +17,11 @@ export default async function Page({ params, searchParams }) {
   const { lang } = await searchParams
   const companyDetail = await getCompanyHome({ slug: company, lang: lang });
   const globalVariables = await getGlobalVariables({ lang: lang })
-  const languages = [companyDetail?.data[0]?.locale, ...companyDetail?.data[0]?.localizations?.map((itm) => itm?.locale)]
-
+  
   if (companyDetail?.data.length === 0) {
     notFound()
   }
+  const languages = [companyDetail.data[0].locale, ...companyDetail.data[0].localizations.map((itm) => itm?.locale)]
 
 
   function convertCompanyName() {
