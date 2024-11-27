@@ -58,7 +58,7 @@ export const SideMenu = ({ categories, categoryTitle }) => {
             >
               <div
                 className={`w-[64px] h-[64px] rounded-full z-[1] bg-center bg-contain`}
-                style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${item?.image?.url})` }}
+                style={{ backgroundImage: item?.image?.url ? `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${item?.image?.url})` : '' }}
               ></div>
               <div className="absolute left-0 top-0 bottom-0 right-0 py-2 pl-14">
                 <div

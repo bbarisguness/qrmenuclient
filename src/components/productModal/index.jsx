@@ -44,7 +44,12 @@ export default function ProductModal({ open, setOpen, selectedItem, tcmb, produc
                             </div>
                         </div>
                         <div style={{ backgroundColor: `#${productModalColor || "7BB4FE"}` }} className='mx-[34px] mt-[34px] mb-[17px] h-[213px] relative rounded-[40px] flex justify-center items-center'>
-                            <img className='rounded-full aspect-square relative max-w-[170px] w-full' src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${selectedItem?.image?.url}`} alt="" />
+                            {
+                                selectedItem?.image?.url ?
+                                <img className='rounded-full aspect-square relative max-w-[170px] w-full' src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${selectedItem?.image?.url}`} alt="" />
+                                :
+                                <div className='rounded-full aspect-square relative max-w-[170px] w-full'></div>
+                            }
                         </div>
                         <div className='text-center mb-[17px] font-Poppins text-[22px] text-[#1E5CCE] font-semibold relative'>
                             <ProductPrice list={false} tcmb={tcmb} price={selectedItem?.price} />

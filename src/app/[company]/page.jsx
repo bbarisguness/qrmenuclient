@@ -17,7 +17,7 @@ export default async function Page({ params, searchParams }) {
   const { lang } = await searchParams
   const companyDetail = await getCompanyHome({ slug: company, lang: lang });
   const globalVariables = await getGlobalVariables({ lang: lang })
-  
+
   if (companyDetail?.data.length === 0) {
     notFound()
   }
@@ -75,10 +75,13 @@ export default async function Page({ params, searchParams }) {
       </div> */}
       <div className="max-w-[600px] flex flex-col w-full relative m-auto h-[100dvh] bg-no-repeat">
         <Modal1 languages={languages} globalVariables={globalVariables} theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
-        <div style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${companyDetail?.data[0]?.banner?.url})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', zIndex: -1 }} className="relative top-0 left-0 w-full h-full">
-          <h1 className="font-AlfaSlabOne font-normal text-[65px] text-white leading-[59.8px] text-center relative mt-[30px]">
-            <div dangerouslySetInnerHTML={{ __html: convertCompanyName() }} />
-          </h1>
+        <div style={{ backgroundImage: companyDetail?.data[0]?.showBanner ? `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${companyDetail?.data[0]?.banner?.url})` : 'none', backgroundColor: companyDetail?.data[0]?.showBanner ? '' : `${companyDetail?.data[0]?.bannerBackgroundColor}`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', zIndex: -1 }} className="relative top-0 left-0 w-full h-full">
+          {
+            companyDetail?.data[0]?.showBanner !== true &&
+            <h1 className="font-AlfaSlabOne font-normal text-[65px] text-white leading-[59.8px] text-center relative mt-[30px]">
+              <div dangerouslySetInnerHTML={{ __html: convertCompanyName() }} />
+            </h1>
+          }
         </div>
       </div>
     </>

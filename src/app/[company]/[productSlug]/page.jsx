@@ -64,7 +64,12 @@ export default async function Page({ params, searchParams }) {
 
                     <div className="mt-[17px] pl-[50px] pr-[50px] relative flex justify-center">
                         {/* <img className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" src={product?.data?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.url : null} alt="" /> */}
-                        <Image priority className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" alt="" width={241} height={241} src={product?.data?.image?.url ? product?.data?.image?.formats?.medium?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.formats?.medium?.url : process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.url : null} />
+                        {
+                            product?.data?.image ?
+                                <Image priority className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" alt="" width={241} height={241} src={product?.data?.image?.url ? product?.data?.image?.formats?.medium?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.formats?.medium?.url : process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.url : null} />
+                                :
+                                <div className="max-w-[241px] max-h-[241px] w-full h-full aspect-square"></div>
+                        }
                     </div>
 
                     <div className="text-center mt-[50px] font-Poppins text-[28px] text-black font-semibold relative pl-[25px] pr-[25px]">

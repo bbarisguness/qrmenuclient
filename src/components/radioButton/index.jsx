@@ -1,11 +1,14 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 export default function RadioButton({ isChecked, color, name, setLanguage }) {
+    const pathname = usePathname()
+    const path = pathname.split('/')[1]
+
     const changeLanguage = () => {
         setLanguage(name)
-        localStorage.setItem('language', name)
+        localStorage.setItem('language', JSON.stringify({ name: path, lang: name }));
     }
 
     return (
