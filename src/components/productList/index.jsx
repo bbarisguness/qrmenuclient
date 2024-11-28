@@ -15,13 +15,19 @@ export default function ProductList({ products, tcmb, productModalColor, globalV
                 products.data.map((item, i) => (
                     <div onClick={() => { setOpen(true); setSelectedItem(item) }} key={i} className="block cursor-pointer w-full pl-[25px] pr-[25px] mb-[15px] group">
                         <div className="flex items-center">
-                            <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.url : null} alt="" />
-                            <div className="pl-[16px] pr-[16px]">
+                            {
+                                item?.image?.url &&
+                                <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.url : null} alt="" />
+                            }
+                            <div style={{ paddingLeft: item?.image?.url ? '16px' : '0px', paddingRight: item?.image?.url ? '16px' : '0px' }}>
                                 <p className="font-Poppins text-[16px] font-medium mb-[8px] text-[#172B4D]">{item.name}</p>
                                 <div>
                                     {/* <span className="font-Poppins text-[12px] text-[#1374E0] mr-[18px]">{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} TL</span> */}
                                     <ProductPrice tcmb={tcmb} price={item?.price} />
-                                    <span className="font-Poppins text-[12px] text-[#7A869A] relative before:content-[''] before:inline-block before:w-[6px] before:h-[6px] before:bg-[#C1C7D0] before:rounded-full before:mr-[8px]">{item.longDescription}</span>
+                                    {
+                                        item.longDescription &&
+                                        <span className="font-Poppins text-[12px] text-[#7A869A] relative before:content-[''] before:inline-block before:w-[6px] before:h-[6px] before:bg-[#C1C7D0] before:rounded-full before:mr-[8px]">{item.longDescription}</span>
+                                    }
                                 </div>
                             </div>
                         </div>

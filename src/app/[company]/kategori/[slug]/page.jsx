@@ -26,7 +26,7 @@ export default async function Page({ params, searchParams }) {
     const products = await getProductsByCategorySlug({ slug: slug, company: company, lang: lang })
     const globalVariables = await getGlobalVariables({ lang: lang })
     const tcmb = await getTcmb()
-    
+
 
     if (products.data.length === 0) {
         notFound()
@@ -93,18 +93,18 @@ export default async function Page({ params, searchParams }) {
                                 <div className="flex items-center">
                                     {/* <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.url : null} alt="" /> */}
                                     {
-                                        item?.image?.url ?
-                                            <Image alt={item.image.hash} className="w-[80px] h-[80px] object-cover rounded-[15px]" width={80} height={80} src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.formats.thumbnail.url : null} />
-                                            :
-                                            <div className="w-[80px] h-[80px] border-2 border-white"></div>
+                                        item?.image?.url &&
+                                        <Image alt={item.image.hash} className="w-[80px] h-[80px] object-cover rounded-[15px]" width={80} height={80} src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.formats.thumbnail.url : null} />
                                     }
-
-                                    <div className="pl-[16px] pr-[16px]">
+                                    <div style={{ paddingLeft: item?.image?.url ? '16px' : '0px', paddingRight: item?.image?.url ? '16px' : '0px' }}>
                                         <p className="font-Poppins text-[16px] font-medium mb-[8px] text-[#172B4D]">{item.name}</p>
                                         <div>
                                             {/* <span className="font-Poppins text-[12px] text-[#1374E0] mr-[18px]">{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} TL</span> */}
                                             <ProductPrice tcmb={tcmb} price={item?.price} />
-                                            <span className="font-Poppins text-[12px] text-[#7A869A] relative before:content-[''] before:inline-block before:w-[6px] before:h-[6px] before:bg-[#C1C7D0] before:rounded-full before:mr-[8px]">{item.longDescription}</span>
+                                            {
+                                                item.longDescription &&
+                                                <span className="font-Poppins text-[12px] text-[#7A869A] relative before:content-[''] before:inline-block before:w-[6px] before:h-[6px] before:bg-[#C1C7D0] before:rounded-full before:mr-[8px]">{item.longDescription}</span>
+                                            }
                                         </div>
                                     </div>
                                 </div>

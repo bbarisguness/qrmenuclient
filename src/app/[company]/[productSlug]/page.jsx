@@ -81,14 +81,17 @@ export default async function Page({ params, searchParams }) {
                     </div> */}
                     <ProductPrice tcmb={tcmb} price={product?.data?.price} list={false} />
 
-                    <div className="mt-[40px] pl-[53px] pr-[53px] relative">
-                        <div className="text-[17px] font-semibold text-black font-Poppins">
-                            {globalVariables?.data?.aboutProductText}
+                    {
+                        product?.data?.longDescription &&
+                        < div className="mt-[40px] pl-[53px] pr-[53px] relative">
+                            <div className="text-[17px] font-semibold text-black font-Poppins">
+                                {globalVariables?.data?.aboutProductText}
+                            </div>
+                            <div className="text-[15px] mt-[7px] font-normal text-black font-Poppins opacity-50">
+                                {product?.data?.longDescription}
+                            </div>
                         </div>
-                        <div className="text-[15px] mt-[7px] font-normal text-black font-Poppins opacity-50">
-                            {product?.data?.longDescription}
-                        </div>
-                    </div>
+                    }
                     {
                         product?.data?.contents.length !== 0 &&
                         <div className="mt-[24px] pl-[53px] pr-[53px] relative">
@@ -113,7 +116,7 @@ export default async function Page({ params, searchParams }) {
                         </Link>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 }

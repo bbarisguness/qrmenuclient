@@ -43,20 +43,34 @@ export default function ProductModal({ open, setOpen, selectedItem, tcmb, produc
                                 </svg>
                             </div>
                         </div>
-                        <div style={{ backgroundColor: `#${productModalColor || "7BB4FE"}` }} className='mx-[34px] mt-[34px] mb-[17px] h-[213px] relative rounded-[40px] flex justify-center items-center'>
-                            {
-                                selectedItem?.image?.url ?
-                                <img className='rounded-full aspect-square relative max-w-[170px] w-full' src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${selectedItem?.image?.url}`} alt="" />
-                                :
-                                <div className='rounded-full aspect-square relative max-w-[170px] w-full'></div>
-                            }
-                        </div>
-                        <div className='text-center mb-[17px] font-Poppins text-[22px] text-[#1E5CCE] font-semibold relative'>
+                        {
+                            selectedItem?.image?.url &&
+                            <div style={{ backgroundColor: `#${productModalColor || "7BB4FE"}` }} className='mx-[34px] mt-[34px] mb-[17px] h-[213px] relative rounded-[40px] flex justify-center items-center'>
+                                {
+                                    selectedItem?.image?.url ?
+                                        <img className='rounded-full aspect-square relative max-w-[170px] w-full' src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${selectedItem?.image?.url}`} alt="" />
+                                        :
+                                        <div className='rounded-full aspect-square relative max-w-[170px] w-full'></div>
+                                }
+                            </div>
+                        }
+                        {
+                            !(selectedItem?.image?.url) &&
+
+                            <div style={{ overflowWrap: 'break-word' }} className='text-center px-8 relative text-[#172b4d] font-Poppins mt-8 text-[22px] font-semibold'>
+                                {selectedItem?.name}
+                            </div>
+                        }
+                        <div style={{ marginTop: selectedItem?.image?.url ? '0px' : '30px' }} className='text-center mb-[17px] font-Poppins text-[22px] text-[#1E5CCE] font-semibold relative'>
                             <ProductPrice list={false} tcmb={tcmb} price={selectedItem?.price} />
                         </div>
-                        <div className='mx-[34px] text-[17px] text-black font-normal font-Poppins'>
-                            {globalVariables?.data?.aboutProductText}
-                        </div>
+                        {
+                            selectedItem?.longDescription &&
+                            <div className='mx-[34px] text-[17px] text-black font-normal font-Poppins'>
+                                {globalVariables?.data?.aboutProductText}
+                            </div>
+                        }
+
                         <div style={{ marginBottom: selectedItem?.contents?.length === 0 ? '34px' : '17px' }} className='mx-[34px] leading-5 text-[15px] font-Poppins opacity-50 tracking-[0.3px]'>
                             {selectedItem?.longDescription}
                         </div>
