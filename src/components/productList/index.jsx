@@ -13,7 +13,7 @@ export default function ProductList({ products, tcmb, productModalColor, globalV
             <ProductModal globalVariables={globalVariables} productModalColor={productModalColor} tcmb={tcmb} selectedItem={selectedItem} open={open} setOpen={setOpen} />
             {
                 products.data.map((item, i) => (
-                    <div onClick={() => { setOpen(true); setSelectedItem(item) }} key={i} className="block cursor-pointer w-full pl-[25px] pr-[25px] mb-[15px] group">
+                    <div onClick={() => { setOpen(true); setSelectedItem(item) }} key={i} className="block cursor-pointer w-full pl-[25px] pr-[25px] mb-[15px]">
                         <div className="flex items-center">
                             {
                                 item?.image?.url &&
@@ -33,7 +33,7 @@ export default function ProductList({ products, tcmb, productModalColor, globalV
                         </div>
                         {
                             products.data?.length != i + 1 &&
-                            <div className="w-full h-[1px] duration-500 bg-white mt-[15px] group-hover:bg-[#62C3FF]"></div>
+                            <div className="w-full h-[1px] duration-500 bg-white mt-[15px]"></div>
                         }
                     </div>
                 ))

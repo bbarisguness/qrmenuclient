@@ -27,7 +27,6 @@ export default async function Page({ params, searchParams }) {
     const globalVariables = await getGlobalVariables({ lang: lang })
     const tcmb = await getTcmb()
 
-
     if (products.data.length === 0) {
         notFound()
     }
@@ -68,9 +67,9 @@ export default async function Page({ params, searchParams }) {
                 products?.data[0]?.category?.company?.showCategoryBanner &&
                 <div className="w-full h-full max-h-[182px] mt-[17px] rounded-l-[30px] rounded-r-[30px] relative overflow-hidden flex items-center justify-center">
                     {
-                        products?.data[0]?.category?.image &&
+                        products?.data[0]?.category?.banner &&
                         < Image
-                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${products?.data[0]?.category?.image?.formats?.medium?.url ? products?.data[0]?.category?.image?.formats?.medium?.url : products?.data[0]?.category?.image?.url}`}
+                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${products?.data[0]?.category?.banner?.formats?.medium?.url ? products?.data[0]?.category?.banner?.formats?.medium?.url : products?.data[0]?.category?.banner?.url}`}
                             alt={products?.data[0]?.category?.name || 'Kategori Görseli'}
                             width={600}
                             height={182}
@@ -89,7 +88,7 @@ export default async function Page({ params, searchParams }) {
                 {
                     products?.data[0]?.category?.company?.productDetailPage === true ?
                         products.data.map((item, i) => (
-                            <Link key={i} href={`/${products?.data[0]?.category?.company?.slug}/${item.documentId}?lang=${lang || 'tr'}`} className="block w-full pl-[25px] pr-[25px] mb-[15px] group">
+                            <Link key={i} href={`/${products?.data[0]?.category?.company?.slug}/${item.documentId}?lang=${lang || 'tr'}`} className="block w-full pl-[25px] pr-[25px] mb-[15px]">
                                 <div className="flex items-center">
                                     {/* <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.url : null} alt="" /> */}
                                     {
@@ -110,7 +109,7 @@ export default async function Page({ params, searchParams }) {
                                 </div>
                                 {
                                     products.data?.length != i + 1 &&
-                                    <div className="w-full h-[1px] duration-500 bg-white mt-[15px] group-hover:bg-[#62C3FF]"></div>
+                                    <div className="w-full h-[1px] duration-500 bg-white mt-[15px]"></div>
                                 }
                             </Link>
                         ))
