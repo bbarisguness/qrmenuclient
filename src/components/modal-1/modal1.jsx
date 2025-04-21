@@ -7,7 +7,7 @@ import RadioButton from "../radioButton";
 import { useGlobalContext } from "@/context/GlobalContext";
 import RadioButtonCurrency from "../radioButtonCurrency";
 
-export default function Modal1({ data, theme, globalVariables, languages }) {
+export default function Modal1({ data, theme, globalVariables, languages, settingButton }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [wifiCopied, setWifiCopied] = useState(false);
   const [modalType, setModalType] = useState(0)
@@ -139,7 +139,7 @@ export default function Modal1({ data, theme, globalVariables, languages }) {
 
   return (
     <div className="z-10 w-full h-full absolute overflow-hidden ">
-      <Button buttonText={globalVariables?.data?.homePageBottomButtonText} setModalType={setModalType} theme={theme} setIsMenuActive={setIsMenuActive} />
+      <Button settingButton={settingButton} buttonText={globalVariables?.data?.homePageBottomButtonText} setModalType={setModalType} theme={theme} setIsMenuActive={setIsMenuActive} />
       {isMenuActive && (
         <div className="w-full h-full absolute top-0 left-0 bottom-0 right-0 bg-black bg-opacity-50 z-10"></div>
       )}
