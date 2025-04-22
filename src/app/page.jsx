@@ -1,12 +1,5 @@
-export const metadata = {
-  title: "Grande Digital Qr Menü",
-  description: "Grande Cafe Qr Menü",
-};
+import { redirect } from 'next/navigation';
 
-export default async function Page() {
-  return (
-    <>
-      <h1>Garnde Digital Qr Menü için Ara....</h1>
-    </>
-  );
+export default function Home() {
+  redirect('https://gdmenu.com');
 }

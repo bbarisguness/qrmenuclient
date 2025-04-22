@@ -26,6 +26,7 @@ export const GlobalProvider = ({ children }) => {
 
     useEffect(() => {
         localStorage.removeItem('language')
+        localStorage.removeItem('currencyType')
     }, [])
 
 
