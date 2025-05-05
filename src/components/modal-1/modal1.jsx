@@ -7,7 +7,7 @@ import RadioButton from "../radioButton";
 import { useGlobalContext } from "@/context/GlobalContext";
 import RadioButtonCurrency from "../radioButtonCurrency";
 
-export default function Modal1({ data, theme, globalVariables, languages, settingButton }) {
+export default function Modal1({ data, theme, globalVariables, languages, settingButton, currencies }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [wifiCopied, setWifiCopied] = useState(false);
   const [modalType, setModalType] = useState(0)
@@ -196,6 +196,23 @@ export default function Modal1({ data, theme, globalVariables, languages, settin
                   >
                     <RadioButtonCurrency isChecked={currencyType === 'tl' ? true : false} color={"black"} name={"tl"} setCurrencyType={setCurrencyType} />
                   </div>
+                  {
+                    currencies?.map((itm, i) => {
+                      return (
+                        <div
+                          key={i}
+                          className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
+                        >
+                          <RadioButtonCurrency isChecked={currencyType === itm?.currency ? true : false} color={"black"} name={itm?.currency} setCurrencyType={setCurrencyType} />
+                        </div>
+                      )
+                    })
+                  }
+                  {/* <div
+                    className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
+                  >
+                    <RadioButtonCurrency isChecked={currencyType === 'tl' ? true : false} color={"black"} name={"tl"} setCurrencyType={setCurrencyType} />
+                  </div>
                   <div
                     className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
                   >
@@ -210,7 +227,7 @@ export default function Modal1({ data, theme, globalVariables, languages, settin
                     className="flex items-center gap-3 flex-[0.25] cursor-pointer border-opacity-30 border-black"
                   >
                     <RadioButtonCurrency isChecked={currencyType === 'eur' ? true : false} color={"black"} name={"eur"} setCurrencyType={setCurrencyType} />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

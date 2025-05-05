@@ -18,7 +18,7 @@ export default async function Page({ params, searchParams }) {
   const companyDetail = await getCompanyHome({ slug: company, lang: lang });
   const globalVariables = await getGlobalVariables({ lang: lang })
 
-  if (companyDetail?.data.length === 0) {
+  if (companyDetail?.data.length === 0 || companyDetail?.data?.[0]?.isActive === false) {
     notFound()
   }
   const languages = [companyDetail.data[0].locale, ...companyDetail.data[0].localizations.map((itm) => itm?.locale)]
@@ -74,7 +74,7 @@ export default async function Page({ params, searchParams }) {
         </div>
       </div> */}
       <div className="max-w-[600px] flex flex-col w-full relative m-auto h-[100dvh] bg-no-repeat">
-        <Modal1 settingButton={companyDetail?.data[0]?.settingButton} languages={languages} globalVariables={globalVariables} theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
+        <Modal1 currencies={companyDetail?.data?.[0]?.currencies} settingButton={companyDetail?.data[0]?.settingButton} languages={languages} globalVariables={globalVariables} theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
         <div style={{ backgroundImage: companyDetail?.data[0]?.showBanner ? `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${companyDetail?.data[0]?.banner?.url})` : 'none', backgroundColor: companyDetail?.data[0]?.showBanner ? '' : `${companyDetail?.data[0]?.bannerBackgroundColor}`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', zIndex: -1 }} className="relative top-0 left-0 w-full h-full">
           {
             companyDetail?.data[0]?.showBanner !== true &&

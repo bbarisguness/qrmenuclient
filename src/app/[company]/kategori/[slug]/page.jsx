@@ -27,7 +27,7 @@ export default async function Page({ params, searchParams }) {
     const globalVariables = await getGlobalVariables({ lang: lang })
     const tcmb = await getTcmb()
 
-    if (products.data.length === 0) {
+    if (products.data.length === 0 || products?.data?.[0]?.category?.company?.isActive === false) {
         notFound()
     }
 
@@ -46,7 +46,7 @@ export default async function Page({ params, searchParams }) {
                         products?.data[0]?.category?.company?.logo?.url ?
                             <div className="w-[72px] h-[72px] relative">
                                 {/* <img width={'100%'} height={'100%'} src={products?.data[0]?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + products?.data[0]?.category?.company?.logo?.url : null} alt="" /> */}
-                                <Image className="rounded-[10px]" priority={true} alt="logo" width={72} height={72} src={products?.data[0]?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + products?.data[0]?.category?.company?.logo?.url : null} />
+                                <Image className="rounded-[10px] h-full" priority={true} alt="logo" width={72} height={72} src={products?.data[0]?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + products?.data[0]?.category?.company?.logo?.url : null} />
                             </div> :
                             <div>
                                 <div className="w-[72px] h-[72px] relative rounded-full bg-[#1374E0] flex flex-col justify-center pl-[10px]">

@@ -29,7 +29,7 @@ export default async function Page({ params, searchParams }) {
     const globalVariables = await getGlobalVariables({ lang: lang })
     const tcmb = await getTcmb()
 
-    if (!(product.data)) {
+    if (!(product.data) || product?.data?.category?.company?.isActive === false) {
         notFound()
     }
 

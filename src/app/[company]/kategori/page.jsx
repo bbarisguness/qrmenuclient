@@ -22,7 +22,7 @@ export default async function Page({ params, searchParams }) {
     const globalVariables = await getGlobalVariables({ lang: lang })
     const categories = await getCategoriesByCompanySlug({ slug: company, lang: lang || 'tr' })
 
-    if (categories?.data?.length === 0) {
+    if (categories?.data?.length === 0 || categories?.data?.[0]?.company?.isActive === false) {
         notFound()
     }
 
@@ -41,7 +41,7 @@ export default async function Page({ params, searchParams }) {
                         categories?.data[0]?.company?.logo?.url ?
                             <div className="w-[72px] h-[72px] relative">
                                 {/* <img width={'100%'} height={'100%'} src={categories?.data[0]?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + categories?.data[0]?.company?.logo?.url : null} alt="" /> */}
-                                <Image className="rounded-[10px]" priority={true} width={72} height={72} alt="logo" src={categories?.data[0]?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + categories?.data[0]?.company?.logo?.url : null} />
+                                <Image className="rounded-[10px] h-full" priority={true} width={72} height={72} alt="logo" src={categories?.data[0]?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + categories?.data[0]?.company?.logo?.url : null} />
                             </div> :
                             <div>
                                 <div className="w-[72px] h-[72px] relative rounded-full bg-[#1374E0] flex flex-col justify-center pl-[10px]">
