@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import RadioButton from "../radioButton";
 import { useGlobalContext } from "@/context/GlobalContext";
 import RadioButtonCurrency from "../radioButtonCurrency";
+import Alert from "../alert";
 
 export default function Modal1({ data, theme, globalVariables, languages, settingButton, currencies }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
@@ -31,7 +32,11 @@ export default function Modal1({ data, theme, globalVariables, languages, settin
   }, []);
 
   const handleCopy = async (textToCopy) => {
+
     setWifiCopied(true);
+    if (!wifiCopied) {
+      Alert({ message: 'Şifre kopyalandı', title: '', type: 'success', time: 1000 })
+    }
     try {
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(textToCopy);

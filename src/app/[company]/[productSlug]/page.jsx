@@ -4,7 +4,6 @@ import { SideMenu } from "@/components/sideMenu/SideMenu";
 import { getCategoriesByCompanySlug } from "@/services/categoryService";
 import { getGlobalVariables } from "@/services/globalVariablesService";
 import { getProductById } from "@/services/productService";
-import { getTcmb } from "@/services/tcmbService";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -27,9 +26,10 @@ export default async function Page({ params, searchParams }) {
     const product = await getProductById({ id: productSlug, company: company, lang: lang })
     const categories = await getCategoriesByCompanySlug({ slug: company, lang: lang })
     const globalVariables = await getGlobalVariables({ lang: lang })
-    const tcmb = await getTcmb()
+    const tcmbRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/currency`);
+    const tcmb = await tcmbRes.text();
 
-    if (!(product.data) || product?.data?.category?.company?.isActive === false) {
+    if (!(product.data) || product?.data?.category?.company?.isActive === false || product?.data?.category?.company?.themeVersion === 'theme2') {
         notFound()
     }
 

@@ -22,7 +22,7 @@ export default async function Page({ params, searchParams }) {
     const globalVariables = await getGlobalVariables({ lang: lang })
     const categories = await getCategoriesByCompanySlug({ slug: company, lang: lang || 'tr' })
 
-    if (categories?.data?.length === 0 || categories?.data?.[0]?.company?.isActive === false) {
+    if (categories?.data?.length === 0 || categories?.data?.[0]?.company?.isActive === false || categories?.data?.[0]?.company?.themeVersion === 'theme2') {
         notFound()
     }
 
