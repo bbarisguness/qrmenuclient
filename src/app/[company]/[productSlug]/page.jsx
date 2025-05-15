@@ -164,7 +164,7 @@ export default async function Page({ params, searchParams }) {
                                             product?.data?.contents?.length > 0 &&
                                             <div className="mt-[16px] flex flex-col gap-[24px]">
                                                 <span className="text-[24px]">
-                                                    İçindekiler
+                                                    {globalVariables?.data?.contentsText}
                                                 </span>
                                                 {
                                                     product?.data?.contents?.map((itm, i) => {

@@ -15,6 +15,7 @@ export const GlobalProvider = ({ children }) => {
     const [activeMenuId, setActiveMenuId] = useState(1);
     const [language, setLanguage] = useState('');
     const [currencyType, setCurrencyType] = useState('tl');
+    const [grid, setGrid] = useState(1)
     const path = pathname.split('/')[1]
 
     // useEffect(() => {
@@ -49,7 +50,7 @@ export const GlobalProvider = ({ children }) => {
     const toggleActiveMenu = (menuId) => setActiveMenuId(menuId);
 
     return (
-        <GlobalContext.Provider value={{ isMenuOpen, activeMenuId, language, currencyType, toggleMenu, toggleActiveMenu, setLanguage, setCurrencyType }}>
+        <GlobalContext.Provider value={{ isMenuOpen, activeMenuId, language, currencyType, toggleMenu, toggleActiveMenu, setLanguage, setCurrencyType, grid, setGrid }}>
             {children}
         </GlobalContext.Provider>
     );

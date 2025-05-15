@@ -3,12 +3,13 @@ import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react'
 import { CiPause1 } from "react-icons/ci";
 import ProductPrice2 from '../productPrice2';
+import { useGlobalContext } from '@/context/GlobalContext';
 
 export default function Theme3Category({ categories, tcmb, lang }) {
-    const [grid, setGrid] = useState(1)
     const [menu, setMenu] = useState(false)
     const [activeCategory, setActiveCategory] = useState("")
 
+    const { grid, setGrid } = useGlobalContext();
 
     // Create an object to store refs for each category
     const categoryRefs = useRef({});
@@ -139,7 +140,7 @@ export default function Theme3Category({ categories, tcmb, lang }) {
                         }
                         <div className="flex items-center justify-between">
                             <span style={{ color: 'black' }} className="text-[16px] font-semibold">{categories?.data?.[0]?.name}</span>
-                            <div><CiPause1 onClick={() => grid === 1 ? setGrid(2) : setGrid(1)} style={{ transform: grid === 2 ? 'rotateZ(90deg)' : '' }} className='cursor-pointer' size={26} /></div>
+                            <div><CiPause1 onClick={() => grid === 1 ? setGrid(2) : setGrid(1)} style={{ transform: grid === 1 ? 'rotateZ(90deg)' : '' }} className='cursor-pointer' size={26} /></div>
                         </div>
                     </div>
                 }
