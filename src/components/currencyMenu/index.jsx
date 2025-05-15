@@ -37,7 +37,7 @@ export default function CurrencyMenu({ data, color }) {
         <div className="text-white font-semibold relative">
             <div onClick={() => setMenuActive(true)} className="flex gap-1 cursor-pointer">
                 <span className="relative top-1"><IoIosArrowDown color={`#${color}`} /></span>
-                <span style={{ color: `#${color}` }}>{currencyType}</span>
+                <span style={{ color: `#${color}` }}>{currencyType.toUpperCase()}</span>
             </div>
             {
                 menuActive &&
@@ -45,7 +45,7 @@ export default function CurrencyMenu({ data, color }) {
                     {
                         langs?.map((itm, i) => {
                             return (
-                                <div onClick={() => { changeLanguage(itm); setMenuActive(false) }} key={i} className={`text-black cursor-pointer ${langs?.length === i + 1 ? "" : "border-b"}`}>{itm}</div>
+                                <div onClick={() => { changeLanguage(itm); setMenuActive(false) }} key={i} className={`text-black cursor-pointer ${langs?.length === i + 1 ? "" : "border-b"}`}>{itm.toUpperCase()}</div>
                             )
                         })
                     }

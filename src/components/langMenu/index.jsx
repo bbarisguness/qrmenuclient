@@ -33,7 +33,7 @@ export default function LangMenu({ data, locale, color }) {
         <div className="text-white font-semibold relative">
             <div onClick={() => setMenuActive(true)} className="flex gap-1 cursor-pointer">
                 <span className="relative top-1"><IoIosArrowDown color={`#${color}`} /></span>
-                <span style={{ color: `#${color}` }}>{locale}</span>
+                <span style={{ color: `#${color}` }}>{locale.toUpperCase()}</span>
             </div>
             {
                 menuActive &&
@@ -41,7 +41,7 @@ export default function LangMenu({ data, locale, color }) {
                     {
                         data?.map((itm, i) => {
                             return (
-                                <div onClick={() => { changeLanguage(itm?.locale); setMenuActive(false) }} key={i} className={`text-black cursor-pointer ${data?.length === i + 1 ? "" : "border-b"}`}>{itm?.locale}</div>
+                                <div onClick={() => { changeLanguage(itm?.locale); setMenuActive(false) }} key={i} className={`text-black cursor-pointer ${data?.length === i + 1 ? "" : "border-b"}`}>{itm?.locale.toUpperCase()}</div>
                             )
                         })
                     }

@@ -155,7 +155,7 @@ export default function Modal1({ data, theme, globalVariables, languages, settin
       >
         {
           modalType === 0 ?
-            data?.map((item, i) => {
+            data?.filter((el) => el?.active)?.map((item, i) => {
               if (item?.active) {
                 return (
                   <Prop
@@ -163,7 +163,7 @@ export default function Modal1({ data, theme, globalVariables, languages, settin
                     color={item?.color}
                     url={item?.url}
                     name={item?.name}
-                    isLastItem={data?.length === i + 1}
+                    isLastItem={data?.filter((el) => el?.active)?.length === i + 1}
                     copyText={item?.copyText}
                     svg={
                       <div dangerouslySetInnerHTML={{ __html: item?.svg }} />

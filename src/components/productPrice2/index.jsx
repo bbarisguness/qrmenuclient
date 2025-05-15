@@ -3,7 +3,7 @@
 import { useGlobalContext } from '@/context/GlobalContext';
 import { useEffect, useState } from 'react';
 
-export default function ProductPrice2({ price, list = true, tcmb }) {
+export default function ProductPrice2({ price, list = true, tcmb, fontSize = '', fontWeight = '' }) {
     const [loading, setLoading] = useState(true)
     const { currencyType } = useGlobalContext();
     const [exchangeRates, setExchangeRates] = useState({});
@@ -49,7 +49,7 @@ export default function ProductPrice2({ price, list = true, tcmb }) {
                 list ?
                     <span className="font-Poppins text-[12px] text-[#1374E0] mr-[18px]">{convertedPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {currencyType === 'tl' ? 'TL' : currencyType === 'usd' ? 'USD' : currencyType === 'gbp' ? 'GBP' : currencyType === 'eur' ? 'EUR' : 'TL'}</span>
                     :
-                    <span className='text-[13px] ml-[2px]'>
+                    <span style={{ fontSize: fontSize ? fontSize : '', fontWeight: fontWeight ? fontWeight : '' }} className='text-[13px] ml-[2px]'>
                         {convertedPrice?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {currencyType === 'tl' ? 'TL' : currencyType === 'usd' ? 'USD' : currencyType === 'gbp' ? 'GBP' : currencyType === 'eur' ? 'EUR' : 'TL'}
                     </span>
 

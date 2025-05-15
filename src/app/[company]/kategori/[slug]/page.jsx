@@ -35,7 +35,7 @@ export default async function Page({ params, searchParams }) {
     const tcmbRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/currency`);
     const tcmb = await tcmbRes.text();
 
-    if (products.data.length === 0 || products?.data?.[0]?.category?.company?.isActive === false) {
+    if (products.data.length === 0 || products?.data?.[0]?.category?.company?.isActive === false || products?.data?.[0]?.category?.company?.themeVersion === 'theme3') {
         notFound()
     }
 

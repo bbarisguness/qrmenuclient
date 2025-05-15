@@ -1,5 +1,6 @@
 import CategoryButton from "@/components/categoryButton";
 import ProductPrice from "@/components/productPrice";
+import ProductPrice2 from "@/components/productPrice2";
 import { SideMenu } from "@/components/sideMenu/SideMenu";
 import { getCategoriesByCompanySlug } from "@/services/categoryService";
 import { getGlobalVariables } from "@/services/globalVariablesService";
@@ -7,6 +8,7 @@ import { getProductById } from "@/services/productService";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FaChevronLeft } from "react-icons/fa";
 
 export async function generateMetadata({ params }) {
     const { productSlug } = await params
@@ -33,20 +35,21 @@ export default async function Page({ params, searchParams }) {
         notFound()
     }
 
-    return (
-        <>
-            <SideMenu categoryTitle={globalVariables?.data?.selectCategoryText} categories={categories} />
-            <div className="min-h-[100dvh] bg-[#F6F6F9] flex-1 justify-center items-center">
-                <div className="max-w-[600px] bg-[#F6F6F9] w-full relative m-auto h-full">
-                    <div className="w-full pt-[14px]" >
-                        <div className="bg-[#F5F5F5] rounded-[20px] w-full h-[98px] flex items-center justify-between pl-[25px] pr-[25px]">
-                            <Link href={`/${product?.data?.category?.company?.slug}/kategori/${product?.data?.category?.slug}?lang=${lang || 'tr'}`} className="flex">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                <span className="text-[16px] font-semibold text-black font-Poppins">{globalVariables?.data?.backButtonText}</span>
-                            </Link>
-                            {/* {
+    if (product?.data?.category?.company?.themeVersion === 'theme1') {
+        return (
+            <>
+                <SideMenu categoryTitle={globalVariables?.data?.selectCategoryText} categories={categories} />
+                <div className="min-h-[100dvh] bg-[#F6F6F9] flex-1 justify-center items-center">
+                    <div className="max-w-[600px] bg-[#F6F6F9] w-full relative m-auto h-full">
+                        <div className="w-full pt-[14px]" >
+                            <div className="bg-[#F5F5F5] rounded-[20px] w-full h-[98px] flex items-center justify-between pl-[25px] pr-[25px]">
+                                <Link href={`/${product?.data?.category?.company?.slug}/kategori/${product?.data?.category?.slug}?lang=${lang || 'tr'}`} className="flex">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                    <span className="text-[16px] font-semibold text-black font-Poppins">{globalVariables?.data?.backButtonText}</span>
+                                </Link>
+                                {/* {
                             product?.data?.category?.company?.logo?.url ?
                                 <div className="w-[72px] h-[72px]">
                                     <img width={'100%'} height={'100%'} src={product.data?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.category?.company?.logo?.url : null} alt="" />
@@ -58,65 +61,131 @@ export default async function Page({ params, searchParams }) {
                                     </div>
                                 </div>
                         } */}
-                            <CategoryButton theme={product?.data?.category?.company?.theme} />
-                        </div>
-                    </div>
-
-                    <div className="mt-[17px] pl-[50px] pr-[50px] relative flex justify-center">
-                        {/* <img className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" src={product?.data?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.url : null} alt="" /> */}
-                        {
-                            product?.data?.image ?
-                                <Image priority className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" alt="" width={241} height={241} src={product?.data?.image?.url ? product?.data?.image?.formats?.medium?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.formats?.medium?.url : process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.url : null} />
-                                :
-                                <div className="max-w-[241px] max-h-[241px] w-full h-full aspect-square"></div>
-                        }
-                    </div>
-
-                    <div className="text-center mt-[50px] font-Poppins text-[28px] text-black font-semibold relative pl-[25px] pr-[25px]">
-                        {product?.data?.name}
-                    </div>
-
-                    {/* <div className="text-center mt-[15px] font-Poppins text-[22px] text-[#1E5CCE] font-semibold relative">
-                        {product?.data?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} TL
-                    </div> */}
-                    <ProductPrice tcmb={tcmb} price={product?.data?.price} list={false} />
-
-                    {
-                        product?.data?.longDescription &&
-                        < div className="mt-[40px] pl-[53px] pr-[53px] relative">
-                            <div className="text-[17px] font-semibold text-black font-Poppins">
-                                {globalVariables?.data?.aboutProductText}
-                            </div>
-                            <div className="text-[15px] mt-[7px] font-normal text-black font-Poppins opacity-50">
-                                {product?.data?.longDescription}
+                                <CategoryButton theme={product?.data?.category?.company?.theme} />
                             </div>
                         </div>
-                    }
-                    {
-                        product?.data?.contents.length !== 0 &&
-                        <div className="mt-[24px] pl-[53px] pr-[53px] relative">
-                            <div className="text-[17px] font-semibold text-black font-Poppins">
-                                {globalVariables?.data?.contentsText}
-                            </div>
+
+                        <div className="mt-[17px] pl-[50px] pr-[50px] relative flex justify-center">
+                            {/* <img className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" src={product?.data?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.url : null} alt="" /> */}
                             {
-                                product?.data?.contents?.map((item, i) => {
-                                    return (
-                                        <div key={i} className="opacity-50 text-[15px] mt-[7px] font-normal text-black font-Poppins relative before:content-[''] before:inline-block before:w-[6px] before:h-[6px] before:bg-[#000000] before:rounded-full before:mr-[8px]">
-                                            {item?.name}
-                                        </div>
-                                    )
-                                })
+                                product?.data?.image ?
+                                    <Image priority className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" alt="" width={241} height={241} src={product?.data?.image?.url ? product?.data?.image?.formats?.medium?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.formats?.medium?.url : process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.url : null} />
+                                    :
+                                    <div className="max-w-[241px] max-h-[241px] w-full h-full aspect-square"></div>
                             }
                         </div>
-                    }
 
-                    <div className="pb-[20px]">
-                        <Link style={{ backgroundColor: `#${product?.data?.category?.company?.theme?.primaryColor}`, color: `#${product?.data?.category?.company?.theme?.secondaryColor}` }} href={`/${product?.data?.category?.company?.slug}/kategori/${product?.data?.category?.slug}?lang=${lang || 'tr'}`} className={"mt-[45px] relative  rounded-[30px] h-[70px] mr-[50px] ml-[50px] justify-center items-center flex font-Poppins font-bold text-[20px] transition-all"}>
-                            {globalVariables?.data?.backButtonText}
-                        </Link>
+                        <div className="text-center mt-[50px] font-Poppins text-[28px] text-black font-semibold relative pl-[25px] pr-[25px]">
+                            {product?.data?.name}
+                        </div>
+
+                        {/* <div className="text-center mt-[15px] font-Poppins text-[22px] text-[#1E5CCE] font-semibold relative">
+                        {product?.data?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} TL
+                    </div> */}
+                        <ProductPrice tcmb={tcmb} price={product?.data?.price} list={false} />
+
+                        {
+                            product?.data?.longDescription &&
+                            < div className="mt-[40px] pl-[53px] pr-[53px] relative">
+                                <div className="text-[17px] font-semibold text-black font-Poppins">
+                                    {globalVariables?.data?.aboutProductText}
+                                </div>
+                                <div className="text-[15px] mt-[7px] font-normal text-black font-Poppins opacity-50">
+                                    {product?.data?.longDescription}
+                                </div>
+                            </div>
+                        }
+                        {
+                            product?.data?.contents.length !== 0 &&
+                            <div className="mt-[24px] pl-[53px] pr-[53px] relative">
+                                <div className="text-[17px] font-semibold text-black font-Poppins">
+                                    {globalVariables?.data?.contentsText}
+                                </div>
+                                {
+                                    product?.data?.contents?.map((item, i) => {
+                                        return (
+                                            <div key={i} className="opacity-50 text-[15px] mt-[7px] font-normal text-black font-Poppins relative before:content-[''] before:inline-block before:w-[6px] before:h-[6px] before:bg-[#000000] before:rounded-full before:mr-[8px]">
+                                                {item?.name}
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        }
+
+                        <div className="pb-[20px]">
+                            <Link style={{ backgroundColor: `#${product?.data?.category?.company?.theme?.primaryColor}`, color: `#${product?.data?.category?.company?.theme?.secondaryColor}` }} href={`/${product?.data?.category?.company?.slug}/kategori/${product?.data?.category?.slug}?lang=${lang || 'tr'}`} className={"mt-[45px] relative  rounded-[30px] h-[70px] mr-[50px] ml-[50px] justify-center items-center flex font-Poppins font-bold text-[20px] transition-all"}>
+                                {globalVariables?.data?.backButtonText}
+                            </Link>
+                        </div>
+                    </div>
+                </div >
+            </>
+        );
+    } else if (product?.data?.category?.company?.themeVersion === 'theme3') {
+        return (
+            <div className="min-h-screen h-full m-auto w-full">
+                <div className="relative min-h-screen">
+                    <div className="w-full p-[24px] z-[99999] absolute top-[24px]">
+                        <div className="w-full flex justify-between">
+                            <div>
+                                <Link href={`/${product?.data?.category?.company?.slug}/kategori?lang=${lang || 'tr'}`} className="inline-flex items-center justify-center active:duration-200 duration-200 active:opacity-60 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 p-[8px] bg-[#00000080] backdrop-blur-lg">
+                                    <FaChevronLeft color="#FFF" size={22} />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full h-full">
+                        <div>
+                            <div className="w-full min-h-screen flex flex-col relative">
+                                <div>
+                                    <img className="h-[350px] object-cover w-full " src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${product?.data?.image?.url ? product?.data?.image?.url : product?.data?.category?.company?.logo?.url}`} alt="" />
+                                </div>
+                                <div style={{ backgroundColor: '#ffffff', color: 'black' }} className="w-full grow h-full pt-[24px] px-[16px]">
+                                    <div className="w-full  pb-[48px] rounded-tl-[24px] rounded-tr-[24px]">
+                                        <div>
+                                            <div className="mt-[24px] flex flex-col gap-[8px]">
+                                                <div className="flex justify-between">
+                                                    <span className="text-[24px] whitespace-pre-wrap word-break max-w-[55%]">
+                                                        {product?.data?.name}
+                                                    </span>
+                                                    <span className="text-[24px]">
+                                                        <ProductPrice2 fontWeight={700} fontSize={"24px"} tcmb={tcmb} price={product?.data?.price} list={false} />
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <div className="text-align:left">
+                                                        <span>{product?.data?.longDescription}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {
+                                            product?.data?.contents?.length > 0 &&
+                                            <div className="mt-[16px] flex flex-col gap-[24px]">
+                                                <span className="text-[24px]">
+                                                    İçindekiler
+                                                </span>
+                                                {
+                                                    product?.data?.contents?.map((itm, i) => {
+                                                        return (
+                                                            <div key={i}>
+                                                                <span>{itm?.name}</span>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div >
-        </>
-    );
+            </div>
+        )
+    }
+
 }

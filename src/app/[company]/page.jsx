@@ -29,7 +29,6 @@ export default async function Page({ params, searchParams }) {
   }
   const languages = [companyDetail.data[0].locale, ...companyDetail.data[0].localizations.map((itm) => itm?.locale)]
 
-
   function convertCompanyName() {
     let string = ''
     const cName = companyDetail?.data[0]?.name.split(' ')
@@ -42,6 +41,7 @@ export default async function Page({ params, searchParams }) {
     })
     return string
   }
+
 
   if (companyDetail?.data?.[0]?.themeVersion === "theme1") {
     return (
@@ -92,7 +92,7 @@ export default async function Page({ params, searchParams }) {
         </div>
       </>
     );
-  } else {
+  } else if (companyDetail?.data?.[0]?.themeVersion === "theme2") {
     const data = await getCategoriesByCompanySlug({ slug: company, lang: lang || 'tr' })
     return (
       <>
@@ -191,5 +191,93 @@ export default async function Page({ params, searchParams }) {
         </div>
       </>
     );
+  } else if (companyDetail?.data?.[0]?.themeVersion === "theme3") {
+    return (
+      <>
+        <div className="min-h-[100dvh] h-full m-auto w-full">
+          <div>
+            <div className="w-full min-h-[calc(100dvh)] relative">
+              <div style={{
+                background: 'rgba(0, 0, 0, 0.6)',
+              }} className="w-full h-full min-h-[calc(100dvh)] absolute">
+              </div>
+              <div style={{ backgroundImage: 'url(/mobile-patternt.jpg)', backgroundSize: 'cover', backgroundPosition: 'center center' }} className="w-full min-h-[calc(100dvh)] p-[12px] flex flex-col">
+                <div className="flex">
+                  {
+                    companyDetail?.data?.[0]?.currencies?.length > 0 &&
+                    <div className="w-full flex justify-start z-[1000]">
+                      <CurrencyMenu color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.currencies} />
+                    </div>
+                  }
+                  {
+                    companyDetail?.data?.[0]?.localizations?.length > 0 &&
+                    <div className="w-full flex justify-end z-[1000]">
+                      <LangMenu color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.localizations} locale={companyDetail?.data?.[0]?.locale} />
+                    </div>
+                  }
+                </div>
+
+                <div className="w-full grow flex z-10  justify-center flex-col">
+                  <div style={{ marginTop: 'auto' }} className="w-full flex flex-col items-center gap-[40px]">
+                    {
+                      companyDetail?.data?.[0]?.logo?.url &&
+                      <div>
+                        <img width={155} height={155} src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${companyDetail?.data?.[0]?.logo?.url}`} alt="" />
+                      </div>
+                    }
+                    <div className="w-full">
+                      <span className="text-[32px] block text-white text-center m-auto break-words w-[80%]">
+                        <b>{companyDetail?.data?.[0]?.name}</b>
+                      </span>
+                      <span className="block text-center break-words text-white"> {lang === 'tr' ? "Hoş Geldiniz" : "Welcome"} </span>
+                    </div>
+                    <div className="w-full text-center">
+                      <div>
+                        <Link style={{ backgroundColor: `#${companyDetail?.data?.[0]?.theme?.primaryColor}`, color: 'rgb(255, 255, 255)' }} href={`${companyDetail?.data?.[0]?.slug}/kategori?lang=${lang || 'tr'}`} className="inline-flex items-center justify-center active:duration-200 duration-200 active:opacity-60 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-[50%] min-w-[215px] text-black !m-auto p-[10px] rounded-[20px] h-[2.75rem]">
+                          {companyDetail?.data?.[0]?.buttons?.find((itm) => itm.type === 'menu')?.name}
+                        </Link>
+                      </div>
+                      {
+                        companyDetail?.data?.[0]?.buttons?.find((itm) => itm.type === 'wifi') &&
+                        <div className="mt-[12px]">
+                          <WifiButton variant={2} color={"FFF"} bgColor={`#${companyDetail?.data?.[0]?.theme?.primaryColor}`} data={companyDetail?.data?.[0]?.buttons?.find((itm) => itm.type === 'wifi')} />
+                        </div>
+                      }
+                    </div>
+                  </div>
+                  <div style={{ marginTop: 'auto' }} className="flex flex-col items-center gap-[48px]">
+                    <div className="flex gap-5 mb-[10px]">
+                      {
+                        companyDetail?.data?.[0]?.buttons?.map((itm, i) => {
+                          if (itm?.type === "instagram") {
+                            return (
+                              <Link target="_blank" key={i} href={itm?.url}>
+                                <FaInstagram color="#FFF" size={26} />
+                              </Link>
+                            )
+                          } else if (itm?.type === "facebook") {
+                            return (
+                              <Link target="_blank" key={i} href={itm?.url}>
+                                <FaFacebookF color="#FFF" size={26} />
+                              </Link>
+                            )
+                          } else if (itm?.type === "comments") {
+                            return (
+                              <Link target="_blank" key={i} href={itm?.url}>
+                                <FaComment color="#FFF" size={26} />
+                              </Link>
+                            )
+                          }
+                        })
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    )
   }
 }
