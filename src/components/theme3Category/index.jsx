@@ -8,7 +8,6 @@ import { useGlobalContext } from '@/context/GlobalContext';
 export default function Theme3Category({ categories, tcmb, lang }) {
     const [menu, setMenu] = useState(false)
     const [activeCategory, setActiveCategory] = useState("")
-
     const { grid, setGrid } = useGlobalContext();
 
     // Create an object to store refs for each category

@@ -1,3 +1,4 @@
+import BackButton from "@/components/backButton";
 import CategoryButton from "@/components/categoryButton";
 import ProductPrice from "@/components/productPrice";
 import ProductPrice2 from "@/components/productPrice2";
@@ -8,7 +9,6 @@ import { getProductById } from "@/services/productService";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FaChevronLeft } from "react-icons/fa";
 
 export async function generateMetadata({ params }) {
     const { productSlug } = await params
@@ -129,9 +129,7 @@ export default async function Page({ params, searchParams }) {
                     <div className="w-full p-[24px] z-[99999] absolute top-[24px]">
                         <div className="w-full flex justify-between">
                             <div>
-                                <Link href={`/${product?.data?.category?.company?.slug}/kategori?lang=${lang || 'tr'}`} className="inline-flex items-center justify-center active:duration-200 duration-200 active:opacity-60 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 p-[8px] bg-[#00000080] backdrop-blur-lg">
-                                    <FaChevronLeft color="#FFF" size={22} />
-                                </Link>
+                                <BackButton />
                             </div>
                         </div>
                     </div>
