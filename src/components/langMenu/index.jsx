@@ -37,11 +37,11 @@ export default function LangMenu({ data, locale, color }) {
             </div>
             {
                 menuActive &&
-                <div ref={menuRef} className="absolute bg-white rounded-[4px] px-[10px] py-[10px] text-center w-[50px] right-0">
+                <div ref={menuRef} className="absolute bg-white rounded-[4px] px-[10px] py-[10px] text-center right-0">
                     {
                         data?.map((itm, i) => {
                             return (
-                                <div onClick={() => { changeLanguage(itm?.locale); setMenuActive(false) }} key={i} className={`text-black cursor-pointer ${data?.length === i + 1 ? "" : "border-b"}`}>{itm?.locale.toUpperCase()}</div>
+                                <div onClick={() => { changeLanguage(itm?.locale); setMenuActive(false) }} key={i} className={`text-black ${data?.length === i + 1 ? "" : "mb-[5px]"} cursor-pointer ${data?.length === i + 1 ? "" : "border-b"}`}>{itm?.locale.toUpperCase()}</div>
                             )
                         })
                     }

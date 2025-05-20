@@ -41,11 +41,11 @@ export default function CurrencyMenu({ data, color }) {
             </div>
             {
                 menuActive &&
-                <div ref={menuRef} className="absolute bg-white rounded-[4px] px-[10px] py-[10px] text-center w-[50px] left-0">
+                <div ref={menuRef} className="absolute bg-white rounded-[4px] px-[10px] py-[10px] text-center left-0">
                     {
                         langs?.map((itm, i) => {
                             return (
-                                <div onClick={() => { changeLanguage(itm); setMenuActive(false) }} key={i} className={`text-black cursor-pointer ${langs?.length === i + 1 ? "" : "border-b"}`}>{itm.toUpperCase()}</div>
+                                <div onClick={() => { changeLanguage(itm); setMenuActive(false) }} key={i} className={`text-black ${langs?.length === i + 1 ? "" : "mb-[5px]"}  cursor-pointer ${langs?.length === i + 1 ? "" : "border-b"}`}>{itm.toUpperCase()}</div>
                             )
                         })
                     }

@@ -160,15 +160,15 @@ export default async function Page({ params, searchParams }) {
                                         <div key={i} className='border-b-[1px] border-solid text-[#212529] border-[#ddd] p-[15px]'>
                                             <div className=''>
                                                 <div className='text-[#212529]'>
-                                                    <div className='relative w-full pl-[90px] min-h-[70px]'>
+                                                    <div className='relative w-full pl-[90px] flex items-center min-h-[70px]'>
                                                         <div className='w-[80px] absolute top-[5px] left-0 overflow-hidden h-full'>
                                                             <img className='h-auto max-h-[99999px] w-full rounded-[5px] max-w-[100%] align-middle' src={item?.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${item?.image?.url}` : `${process.env.NEXT_PUBLIC_BACKEND_URL}${products?.data[0]?.category?.company?.logo?.url}`} alt="" />
                                                         </div>
-                                                        <div>
-                                                            <div className='font-semibold text-[13px]'>{item?.name}</div>
-                                                            <div className='text-[13px]'>{item?.longDescription}</div>
-                                                            <div className='text-[#7b7b7b] max-w-[100%] mt-[10px] mx-auto mb-0'>
-                                                                <div className='float-left w-full flex'>
+                                                        <div className="">
+                                                            <div className='font-semibold text-[13px] mt-[6px]'>{item?.name}</div>
+                                                            <div className='text-[13px] mt-[6px]'>{item?.longDescription}</div>
+                                                            <div className='text-[#7b7b7b] max-w-[100%] mt-[6px] mx-auto mb-0'>
+                                                                <div className='w-full float-left flex'>
                                                                     {/* <FaTurkishLiraSign /> <span className='text-[13px] ml-[2px]'>{item?.price}</span> */}
                                                                     <ProductPrice2 list={false} tcmb={tcmb} price={item?.price} />
                                                                 </div>
@@ -183,7 +183,7 @@ export default async function Page({ params, searchParams }) {
                             }
                         </div>
                     </div>
-                    <div style={{ backgroundColor: products?.data?.[0]?.category?.company?.theme?.primaryColor ? `#${products?.data?.[0]?.category?.company?.theme?.primaryColor}` : "#0f263a" }} className='py-[20px] px-[35px] h-[100px] text-center text-[#ffffff]'>
+                    <div style={{ backgroundColor: products?.data?.[0]?.category?.company?.theme?.primaryColor ? `#${products?.data?.[0]?.category?.company?.theme?.primaryColor}` : "#0f263a" }} className='py-[20px] px-[35px] absolute w-full bottom-0 h-[100px] text-center text-[#ffffff]'>
                         {
 
                             products?.data?.[0]?.category?.company?.buttons?.find((itm) => itm?.type === "wifi") &&

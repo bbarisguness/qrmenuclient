@@ -159,19 +159,19 @@ export default async function Page({ params, searchParams }) {
                 companyDetail?.data[0]?.buttons?.map((itm, i) => {
                   if (itm?.type === "instagram") {
                     return (
-                      <Link href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
+                      <Link key={i} href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
                         <FaInstagram color='#0f263a' />
                       </Link>
                     )
                   } else if (itm?.type === "facebook") {
                     return (
-                      <Link href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
+                      <Link key={i} href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
                         <FaFacebookF color='#0f263a' />
                       </Link>
                     )
                   } else if (itm?.type === "comments") {
                     return (
-                      <Link href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
+                      <Link key={i} href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
                         <FaComment color='#0f263a' />
                       </Link>
                     )
