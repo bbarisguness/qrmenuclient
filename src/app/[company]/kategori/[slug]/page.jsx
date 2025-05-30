@@ -55,7 +55,7 @@ export default async function Page({ params, searchParams }) {
                             products?.data[0]?.category?.company?.logo?.url ?
                                 <div className="w-[72px] h-[72px] relative">
                                     {/* <img width={'100%'} height={'100%'} src={products?.data[0]?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + products?.data[0]?.category?.company?.logo?.url : null} alt="" /> */}
-                                    <Image className="rounded-[10px] h-full" priority={true} alt="logo" width={72} height={72} src={products?.data[0]?.category?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + products?.data[0]?.category?.company?.logo?.url : null} />
+                                    <Image className="rounded-[10px] h-full" priority={true} alt="logo" width={72} height={72} src={products?.data[0]?.category?.company?.logo?.url ? products?.data[0]?.category?.company?.logo?.url : null} />
                                 </div> :
                                 <div>
                                     <div className="w-[72px] h-[72px] relative rounded-full bg-[#1374E0] flex flex-col justify-center pl-[10px]">
@@ -78,7 +78,7 @@ export default async function Page({ params, searchParams }) {
                         {
                             products?.data[0]?.category?.banner &&
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${products?.data[0]?.category?.banner?.formats?.medium?.url ? products?.data[0]?.category?.banner?.formats?.medium?.url : products?.data[0]?.category?.banner?.url}`}
+                                src={`${products?.data[0]?.category?.banner?.formats?.medium?.url ? products?.data[0]?.category?.banner?.formats?.medium?.url : products?.data[0]?.category?.banner?.url}`}
                                 alt={products?.data[0]?.category?.name || 'Kategori Görseli'}
                                 width={600}
                                 height={182}
@@ -102,7 +102,7 @@ export default async function Page({ params, searchParams }) {
                                         {/* <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.url : null} alt="" /> */}
                                         {
                                             item?.image?.url &&
-                                            <Image alt={item.image.hash} className="w-[80px] h-[80px] object-cover rounded-[15px]" width={80} height={80} src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.formats.thumbnail.url : null} />
+                                            <Image alt={item.image.hash} className="w-[80px] h-[80px] object-cover rounded-[15px]" width={80} height={80} src={item?.image?.url ? item.image.formats.thumbnail.url : null} />
                                         }
                                         <div style={{ paddingLeft: item?.image?.url ? '16px' : '0px', paddingRight: item?.image?.url ? '16px' : '0px' }}>
                                             <p className="font-Poppins text-[16px] font-medium mb-[8px] text-[#172B4D]">{item.name}</p>
@@ -162,7 +162,7 @@ export default async function Page({ params, searchParams }) {
                                                 <div className='text-[#212529]'>
                                                     <div className='relative w-full pl-[90px] flex items-center min-h-[70px]'>
                                                         <div className='w-[80px] absolute top-[5px] left-0 overflow-hidden h-full'>
-                                                            <img className='h-auto max-h-[99999px] w-full rounded-[5px] max-w-[100%] align-middle' src={item?.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${item?.image?.url}` : `${process.env.NEXT_PUBLIC_BACKEND_URL}${products?.data[0]?.category?.company?.logo?.url}`} alt="" />
+                                                            <img className='h-auto max-h-[99999px] w-full rounded-[5px] max-w-[100%] align-middle' src={item?.image ? `${item?.image?.url}` : `${products?.data[0]?.category?.company?.logo?.url}`} alt="" />
                                                         </div>
                                                         <div className="">
                                                             <div className='font-semibold text-[13px] mt-[6px]'>{item?.name}</div>

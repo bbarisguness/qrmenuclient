@@ -81,7 +81,7 @@ export default async function Page({ params, searchParams }) {
       </div> */}
         <div className="max-w-[600px] flex flex-col w-full relative m-auto h-[100dvh] bg-no-repeat">
           <Modal1 currencies={companyDetail?.data?.[0]?.currencies} settingButton={companyDetail?.data[0]?.settingButton} languages={languages} globalVariables={globalVariables} theme={companyDetail?.data[0]?.theme} data={companyDetail?.data[0]?.buttons} />
-          <div style={{ backgroundImage: companyDetail?.data[0]?.showBanner ? `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${companyDetail?.data[0]?.banner?.url})` : 'none', backgroundColor: companyDetail?.data[0]?.showBanner ? '' : `${companyDetail?.data[0]?.bannerBackgroundColor}`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', zIndex: -1 }} className="relative top-0 left-0 w-full h-full">
+          <div style={{ backgroundImage: companyDetail?.data[0]?.showBanner ? `url(${companyDetail?.data[0]?.banner?.url})` : 'none', backgroundColor: companyDetail?.data[0]?.showBanner ? '' : `${companyDetail?.data[0]?.bannerBackgroundColor}`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', zIndex: -1 }} className="relative top-0 left-0 w-full h-full">
             {
               companyDetail?.data[0]?.showBanner !== true &&
               <h1 className="font-AlfaSlabOne font-normal text-[65px] text-white leading-[59.8px] text-center relative mt-[30px]">
@@ -114,7 +114,7 @@ export default async function Page({ params, searchParams }) {
             <div className="mb-[-15px] overflow-hidden relative block box-border select-none">
               <div className="relative block overflow-hidden m-0 p-0 select-none">
                 <div className="">
-                  <img className="w-full max-h-[1000px]" src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${companyDetail?.data?.[0]?.banner?.url}`} />
+                  <img className="w-full max-h-[1000px]" src={`${companyDetail?.data?.[0]?.banner?.url}`} />
                 </div>
               </div>
               <ul className="bottom-[20px] absolute block w-full p-0 m-0 list-none text-center">
@@ -138,7 +138,7 @@ export default async function Page({ params, searchParams }) {
                             <div className="break-normal text-center table-cell align-middle text-[#fff] text-[18px] font-semibold px-[20px] leading-[1]">{itm.name}</div>
                           </div>
                           <div className="absolute top-0 left-0 w-full h-full bg-[#000000]">
-                            <img className="opacity-50 max-h-[9999999%] w-[200%] h-auto max-w-[200%] ml-[-50%]" src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${itm?.image?.url}`} />
+                            <img className="opacity-50 max-h-[9999999%] w-[200%] h-auto max-w-[200%] ml-[-50%]" src={`${itm?.image?.url}`} />
                           </div>
                         </Link>
                       </div>
@@ -222,7 +222,7 @@ export default async function Page({ params, searchParams }) {
                     {
                       companyDetail?.data?.[0]?.logo?.url &&
                       <div>
-                        <img width={155} height={155} src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${companyDetail?.data?.[0]?.logo?.url}`} alt="" />
+                        <img width={155} height={155} src={`${companyDetail?.data?.[0]?.logo?.url}`} alt="" />
                       </div>
                     }
                     <div className="w-full">

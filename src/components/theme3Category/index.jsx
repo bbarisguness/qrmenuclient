@@ -4,12 +4,12 @@ import React, { useEffect, useState, useRef } from 'react'
 import { CiPause1 } from "react-icons/ci";
 import ProductPrice2 from '../productPrice2';
 import { useGlobalContext } from '@/context/GlobalContext';
+import { photoFormatsDetect } from '@/utils/photoFormatsDetect';
 
 export default function Theme3Category({ categories, tcmb, lang }) {
     const [menu, setMenu] = useState(false)
     const [activeCategory, setActiveCategory] = useState("")
     const { grid, setGrid } = useGlobalContext();
-
     // Create an object to store refs for each category
     const categoryRefs = useRef({});
 
@@ -113,7 +113,7 @@ export default function Theme3Category({ categories, tcmb, lang }) {
                                         >
                                             <div className="rounded-lg aspect-square !w-[32px] !h-[32px] overflow-hidden">
                                                 <div className="relative w-full h-full">
-                                                    <img style={{ opacity: 100 }} className="!w-full !h-full object-cover duration-200" width={80} height={80} src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${category?.image?.url ? category?.image?.url : categories?.data?.[0]?.company?.logo?.url}`} alt="" />
+                                                    <img style={{ opacity: 100 }} className="!w-full !h-full object-cover duration-200" width={80} height={80} src={`${category?.image?.url ? photoFormatsDetect(category?.image, "thumbnail")?.url : categories?.data?.[0]?.company?.logo?.url}`} alt="" />
                                                 </div>
                                             </div>
                                             <span className="max-w-[180px] text-ellipsis overflow-hidden one-line break-all">{category?.name}</span>
@@ -133,7 +133,7 @@ export default function Theme3Category({ categories, tcmb, lang }) {
                             categories?.data?.[0]?.image?.url &&
                             <div className="w-full overflow-hidden h-[150px] rounded-[8px] mb-[16px]">
                                 <div className="relative w-full h-full">
-                                    <img width={80} height={80} className="!w-full !h-full object-cover duration-200" src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${categories?.data?.[0]?.image?.url}`} alt="" />
+                                    <img width={80} height={80} className="!w-full !h-full object-cover duration-200" src={photoFormatsDetect(categories?.data?.[0]?.image, "medium")?.url} alt="" />
                                 </div>
                             </div>
                         }
@@ -158,7 +158,7 @@ export default function Theme3Category({ categories, tcmb, lang }) {
                                                         <div>
                                                             <div className={`${grid === 1 ? '!h-[80px] !w-[80px] max-w-max' : ''} aspect-square overflow-hidden rounded-[16px]`}>
                                                                 <div className="relative w-full h-full">
-                                                                    <img style={{ opacity: 100 }} className="!w-full !h-full object-cover duration-200" src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${itm?.image?.url ? itm?.image?.url : categories?.data?.[0]?.company?.logo?.url}`} alt="" />
+                                                                    <img style={{ opacity: 100 }} className="!w-full !h-full object-cover duration-200" src={`${itm?.image?.url ? photoFormatsDetect(itm?.image, "medium")?.url : categories?.data?.[0]?.company?.logo?.url}`} alt="" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -198,7 +198,7 @@ export default function Theme3Category({ categories, tcmb, lang }) {
                                             category?.image?.url &&
                                             <div className="w-full h-[150px] rounded-[8px] overflow-hidden">
                                                 <div className="relative w-full h-full">
-                                                    <img style={{ opacity: 100 }} width={80} height={80} className="!w-full !h-full object-cover duration-200" src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${category?.image?.url}`} alt="" />
+                                                    <img style={{ opacity: 100 }} width={80} height={80} className="!w-full !h-full object-cover duration-200" src={`${photoFormatsDetect(category?.image, "medium")?.url}`} alt="" />
                                                 </div>
                                             </div>
                                         }
@@ -215,7 +215,7 @@ export default function Theme3Category({ categories, tcmb, lang }) {
                                                                     <div>
                                                                         <div className={`${grid === 1 ? '!h-[80px] !w-[80px] max-w-max' : ''} aspect-square overflow-hidden rounded-[16px]`}>
                                                                             <div className="relative w-full h-full">
-                                                                                <img style={{ opacity: 100 }} className="!w-full !h-full object-cover duration-200" src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${product?.image?.url ? product?.image?.url : categories?.data?.[0]?.company?.logo?.url}`} alt="" />
+                                                                                <img style={{ opacity: 100 }} className="!w-full !h-full object-cover duration-200" src={`${product?.image?.url ? photoFormatsDetect(product?.image, "medium")?.url : categories?.data?.[0]?.company?.logo?.url}`} alt="" />
                                                                             </div>
                                                                         </div>
                                                                     </div>

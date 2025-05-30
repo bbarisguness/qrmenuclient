@@ -48,7 +48,7 @@ export default function ProductModal({ open, setOpen, selectedItem, tcmb, produc
                             <div style={{ backgroundColor: `#${productModalColor || "7BB4FE"}` }} className='mx-[34px] mt-[34px] mb-[17px] h-[213px] relative rounded-[40px] flex justify-center items-center'>
                                 {
                                     selectedItem?.image?.url ?
-                                        <img className='rounded-full aspect-square relative max-w-[170px] w-full' src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${selectedItem?.image?.url}`} alt="" />
+                                        <img className='rounded-full aspect-square relative max-w-[170px] w-full' src={`${selectedItem?.image?.url}`} alt="" />
                                         :
                                         <div className='rounded-full aspect-square relative max-w-[170px] w-full'></div>
                                 }

@@ -69,7 +69,7 @@ export default async function Page({ params, searchParams }) {
                             {/* <img className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" src={product?.data?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.url : null} alt="" /> */}
                             {
                                 product?.data?.image ?
-                                    <Image priority className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" alt="" width={241} height={241} src={product?.data?.image?.url ? product?.data?.image?.formats?.medium?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.formats?.medium?.url : process.env.NEXT_PUBLIC_BACKEND_URL + product?.data?.image?.url : null} />
+                                    <Image priority className="rounded-full aspect-square max-w-[241px] max-h-[241px] w-full h-full object-cover object-center" alt="" width={241} height={241} src={product?.data?.image?.url ? product?.data?.image?.formats?.medium?.url ? product?.data?.image?.formats?.medium?.url : product?.data?.image?.url : null} />
                                     :
                                     <div className="max-w-[241px] max-h-[241px] w-full h-full aspect-square"></div>
                             }
@@ -137,7 +137,7 @@ export default async function Page({ params, searchParams }) {
                         <div>
                             <div className="w-full min-h-screen flex flex-col relative">
                                 <div>
-                                    <img className="h-[350px] object-cover w-full " src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${product?.data?.image?.url ? product?.data?.image?.url : product?.data?.category?.company?.logo?.url}`} alt="" />
+                                    <img className="h-[350px] object-cover w-full " src={`${product?.data?.image?.url ? product?.data?.image?.url : product?.data?.category?.company?.logo?.url}`} alt="" />
                                 </div>
                                 <div style={{ backgroundColor: '#ffffff', color: 'black' }} className="w-full grow h-full pt-[24px] px-[16px]">
                                     <div className="w-full  pb-[48px] rounded-tl-[24px] rounded-tr-[24px]">

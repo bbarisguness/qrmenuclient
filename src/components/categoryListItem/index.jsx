@@ -25,7 +25,7 @@ export default function CategoryListItem({ categories, item }) {
                 item?.image?.url &&
                 <Image
                     className="object-center object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                    src={item?.image?.url ? item?.image?.formats?.medium?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item?.image?.formats?.medium?.url : process.env.NEXT_PUBLIC_BACKEND_URL + item?.image?.url : null}
+                    src={item?.image?.url ? item?.image?.formats?.medium?.url ? item?.image?.formats?.medium?.url : item?.image?.url : null}
                     alt={item?.image?.hash || ''}
                     width={500}
                     height={500}

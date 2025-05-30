@@ -45,7 +45,7 @@ export default async function Page({ params, searchParams }) {
                             categories?.data[0]?.company?.logo?.url ?
                                 <div className="w-[72px] h-[72px] relative">
                                     {/* <img width={'100%'} height={'100%'} src={categories?.data[0]?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + categories?.data[0]?.company?.logo?.url : null} alt="" /> */}
-                                    <Image className="rounded-[10px] h-full" priority={true} width={72} height={72} alt="logo" src={categories?.data[0]?.company?.logo?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + categories?.data[0]?.company?.logo?.url : null} />
+                                    <Image className="rounded-[10px] h-full" priority={true} width={72} height={72} alt="logo" src={categories?.data[0]?.company?.logo?.url ? categories?.data[0]?.company?.logo?.url : null} />
                                 </div> :
                                 <div>
                                     <div className="w-[72px] h-[72px] relative rounded-full bg-[#1374E0] flex flex-col justify-center pl-[10px]">

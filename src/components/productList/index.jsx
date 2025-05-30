@@ -17,7 +17,7 @@ export default function ProductList({ products, tcmb, productModalColor, globalV
                         <div className="flex items-center">
                             {
                                 item?.image?.url &&
-                                <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? process.env.NEXT_PUBLIC_BACKEND_URL + item.image.url : null} alt="" />
+                                <img className="w-[80px] h-[80px] object-cover rounded-[15px]" src={item?.image?.url ? item.image.url : null} alt="" />
                             }
                             <div style={{ paddingLeft: item?.image?.url ? '16px' : '0px', paddingRight: item?.image?.url ? '16px' : '0px' }}>
                                 <p className="font-Poppins text-[16px] font-medium mb-[8px] text-[#172B4D]">{item.name}</p>
