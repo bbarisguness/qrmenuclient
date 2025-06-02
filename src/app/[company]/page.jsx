@@ -209,13 +209,13 @@ export default async function Page({ params, searchParams }) {
                   {
                     companyDetail?.data?.[0]?.currencies?.length > 0 &&
                     <div className="w-full flex justify-start z-[1000]">
-                      <CurrencyMenu color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.currencies} />
+                      <CurrencyMenu modal color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.currencies} />
                     </div>
                   }
                   {
                     companyDetail?.data?.[0]?.localizations?.length > 0 &&
                     <div className="w-full flex justify-end z-[1000]">
-                      <LangMenu color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.localizations} locale={companyDetail?.data?.[0]?.locale} />
+                      <LangMenu modal color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.localizations} locale={companyDetail?.data?.[0]?.locale} />
                     </div>
                   }
                 </div>
