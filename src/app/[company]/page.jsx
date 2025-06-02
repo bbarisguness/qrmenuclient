@@ -100,14 +100,14 @@ export default async function Page({ params, searchParams }) {
           <nav style={{ backgroundColor: companyDetail?.data[0]?.theme?.primaryColor ? `#${companyDetail?.data[0]?.theme?.primaryColor}` : "#0f263a" }} className='h-[56px] w-full fixed top-0 left-0 z-[10] flex items-center py-[.5rem] px-[1rem]'>
             {
               companyDetail?.data?.[0]?.currencies?.length > 0 &&
-              <CurrencyMenu color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.currencies} />
+              <CurrencyMenu modal color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.currencies} />
             }
             <div className='flex items-center justify-between w-full px-[15px] mx-auto'>
               <div style={{ color: companyDetail?.data[0]?.theme?.secondaryColor ? `#${companyDetail?.data[0]?.theme?.secondaryColor}` : "#ffffff" }} className='h-[30px] my-[5px] mx-0 text-[20px] font-extrabold w-full text-center max-[412px]:text-[16px]'>{companyDetail?.data[0]?.name}</div>
             </div>
             {
               companyDetail?.data?.[0]?.localizations?.length > 0 &&
-              <LangMenu color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.localizations} locale={companyDetail?.data?.[0]?.locale} />
+              <LangMenu modal color={companyDetail?.data[0]?.theme?.secondaryColor || 'ffffff'} data={companyDetail?.data?.[0]?.localizations} locale={companyDetail?.data?.[0]?.locale} />
             }
           </nav>
           <div className="max-w-full my-0 mx-auto min-h-[calc(100vh-156px)] bg-[#ffffff] overflow-hidden">
@@ -138,7 +138,10 @@ export default async function Page({ params, searchParams }) {
                             <div className="break-normal text-center table-cell align-middle text-[#fff] text-[18px] font-semibold px-[20px] leading-[1]">{itm.name}</div>
                           </div>
                           <div className="absolute top-0 left-0 w-full h-full bg-[#000000]">
-                            <img className="opacity-50 max-h-[9999999%] w-[200%] h-auto max-w-[200%] ml-[-50%]" src={`${itm?.image?.url}`} />
+                            {
+                              itm?.image?.url &&
+                              <img className="opacity-70 max-h-[100%] max-w-[100%] w-full h-full ml-0" src={`${itm?.image?.url}`} />
+                            }
                           </div>
                         </Link>
                       </div>

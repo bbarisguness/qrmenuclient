@@ -134,14 +134,14 @@ export default async function Page({ params, searchParams }) {
                     <nav style={{ backgroundColor: products?.data?.[0]?.category?.company?.theme?.primaryColor ? `#${products?.data?.[0]?.category?.company?.theme?.primaryColor}` : "#0f263a" }} className='h-[56px] w-full fixed top-0 left-0 z-[10] flex items-center py-[.5rem] px-[1rem]'>
                         {
                             products?.data[0]?.category?.company?.currencies?.length > 0 &&
-                            <CurrencyMenu data={products?.data[0]?.category?.company?.currencies} />
+                            <CurrencyMenu modal color={products?.data?.[0]?.category?.company?.theme?.secondaryColor || 'ffffff'} data={products?.data[0]?.category?.company?.currencies} />
                         }
                         <div className='flex items-center justify-between w-full px-[15px] mx-auto'>
-                            <div className='text-[#ffffff] h-[30px] my-[5px] mx-0 text-[20px] font-extrabold w-full text-center max-[412px]:text-[16px]'>{products?.data[0]?.category?.company?.name}</div>
+                            <div style={{ color: products?.data?.[0]?.category?.company?.theme?.secondaryColor ? `#${products?.data?.[0]?.category?.company?.theme?.secondaryColor}` : "#ffffff" }} className='text-[#ffffff] h-[30px] my-[5px] mx-0 text-[20px] font-extrabold w-full text-center max-[412px]:text-[16px]'>{products?.data[0]?.category?.company?.name}</div>
                         </div>
                         {
                             products?.data?.[0]?.category?.company?.localizations?.length > 0 &&
-                            <LangMenu data={products?.data?.[0]?.category?.company?.localizations} locale={products?.data?.[0]?.category?.company?.locale} />
+                            <LangMenu modal color={products?.data?.[0]?.category?.company?.theme?.secondaryColor || 'ffffff'} data={products?.data?.[0]?.category?.company?.localizations} locale={products?.data?.[0]?.category?.company?.locale} />
                         }
                     </nav>
                     <div className='mt-0 mb-0 p-0 bg-[#ffffff]'>
@@ -162,7 +162,7 @@ export default async function Page({ params, searchParams }) {
                                                 <div className='text-[#212529]'>
                                                     <div className='relative w-full pl-[90px] flex items-center min-h-[70px]'>
                                                         <div className='w-[80px] absolute top-[5px] left-0 overflow-hidden h-full'>
-                                                            <img className='h-auto max-h-[99999px] w-full rounded-[5px] max-w-[100%] align-middle' src={item?.image ? `${item?.image?.url}` : `${products?.data[0]?.category?.company?.logo?.url}`} alt="" />
+                                                            <img style={{ maxHeight: '70px', objectFit: 'cover', height: '100%' }} className='h-auto max-h-[99999px] w-full rounded-[5px] max-w-[100%] align-middle' src={item?.image ? `${item?.image?.url}` : `${products?.data[0]?.category?.company?.logo?.url}`} alt="" />
                                                         </div>
                                                         <div className="">
                                                             <div className='font-semibold text-[13px] mt-[6px]'>{item?.name}</div>
@@ -187,26 +187,26 @@ export default async function Page({ params, searchParams }) {
                         {
 
                             products?.data?.[0]?.category?.company?.buttons?.find((itm) => itm?.type === "wifi") &&
-                            <WifiButton data={products?.data?.[0]?.category?.company?.buttons?.find((itm) => itm?.type === "wifi")} />
+                            <WifiButton color={products?.data?.[0]?.category?.company?.theme?.secondaryColor || 'ffffff'} bgColor={`#${products?.data?.[0]?.category?.company?.theme?.primaryColor}`} data={products?.data?.[0]?.category?.company?.buttons?.find((itm) => itm?.type === "wifi")} />
                         }
                         <div className='text-center gap-1 flex flex-wrap justify-center items-center w-full text-[#ffffff]'>
                             {
                                 products?.data?.[0]?.category?.company?.buttons?.map((itm, i) => {
                                     if (itm?.type === "instagram") {
                                         return (
-                                            <Link href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
+                                            <Link key={i} href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
                                                 <FaInstagram color='#0f263a' />
                                             </Link>
                                         )
                                     } else if (itm?.type === "facebook") {
                                         return (
-                                            <Link href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
+                                            <Link key={i} href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
                                                 <FaFacebookF color='#0f263a' />
                                             </Link>
                                         )
                                     } else if (itm?.type === "comments") {
                                         return (
-                                            <Link href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
+                                            <Link key={i} href={itm?.url} rel="nofollow" target="_blank" className='rounded-full flex items-center justify-center bg-[#ffffff] w-[30px] h-[30px]'>
                                                 <FaComment color='#0f263a' />
                                             </Link>
                                         )
