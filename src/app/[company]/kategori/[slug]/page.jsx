@@ -157,7 +157,7 @@ export default async function Page({ params, searchParams }) {
                             {
                                 products?.data?.map((item, i) => {
                                     return (
-                                        <div key={i} className='border-b-[1px] border-solid text-[#212529] border-[#ddd] p-[15px]'>
+                                        <div key={i} className='border-b-[1px] border-solid text-[#212529] border-[#ddd] p-[15px] last:mb-[120px]'>
                                             <div className=''>
                                                 <div className='text-[#212529]'>
                                                     <div className='relative w-full pl-[90px] flex items-center min-h-[70px]'>
