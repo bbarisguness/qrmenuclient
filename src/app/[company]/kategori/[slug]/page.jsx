@@ -134,14 +134,14 @@ export default async function Page({ params, searchParams }) {
                     <nav style={{ backgroundColor: products?.data?.[0]?.category?.company?.theme?.primaryColor ? `#${products?.data?.[0]?.category?.company?.theme?.primaryColor}` : "#0f263a" }} className='h-[56px] w-full fixed top-0 left-0 z-[10] flex items-center py-[.5rem] px-[1rem]'>
                         {
                             products?.data[0]?.category?.company?.currencies?.length > 0 &&
-                            <CurrencyMenu modal color={products?.data?.[0]?.category?.company?.theme?.secondaryColor || 'ffffff'} data={products?.data[0]?.category?.company?.currencies} />
+                            <CurrencyMenu lang={lang} modal color={products?.data?.[0]?.category?.company?.theme?.secondaryColor || 'ffffff'} data={products?.data[0]?.category?.company?.currencies} />
                         }
                         <div className='flex items-center justify-between w-full px-[15px] mx-auto'>
                             <div style={{ color: products?.data?.[0]?.category?.company?.theme?.secondaryColor ? `#${products?.data?.[0]?.category?.company?.theme?.secondaryColor}` : "#ffffff" }} className='text-[#ffffff] h-[30px] my-[5px] mx-0 text-[20px] font-extrabold w-full text-center max-[412px]:text-[16px]'>{products?.data[0]?.category?.company?.name}</div>
                         </div>
                         {
                             products?.data?.[0]?.category?.company?.localizations?.length > 0 &&
-                            <LangMenu modal color={products?.data?.[0]?.category?.company?.theme?.secondaryColor || 'ffffff'} data={products?.data?.[0]?.category?.company?.localizations} locale={products?.data?.[0]?.category?.company?.locale} />
+                            <LangMenu lang={lang} modal color={products?.data?.[0]?.category?.company?.theme?.secondaryColor || 'ffffff'} data={products?.data?.[0]?.category?.company?.localizations} locale={products?.data?.[0]?.category?.company?.locale} />
                         }
                     </nav>
                     <div className='mt-0 mb-0 p-0 bg-[#ffffff]'>

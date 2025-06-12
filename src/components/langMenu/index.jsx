@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from "react-icons/io";
 
-export default function LangMenu({ data, locale, color, modal = false }) {
+export default function LangMenu({ lang = 'tr', data, locale, color, modal = false }) {
     const { language, setLanguage } = useGlobalContext();
     const menuRef = useRef(null);
     const [menuActive, setMenuActive] = useState(false)
@@ -51,7 +51,7 @@ export default function LangMenu({ data, locale, color, modal = false }) {
                             onClick={(e) => e.stopPropagation()}
                         >
                             <h3 className="text-lg font-semibold text-black mb-4 text-center">
-                                Dil Seçiniz
+                                {lang === 'tr' ? 'Dil Seçiniz' : 'Select Language'}
                             </h3>
 
                             <div className="space-y-2">

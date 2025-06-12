@@ -3,7 +3,7 @@ import { useGlobalContext } from '@/context/GlobalContext';
 import React, { useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from "react-icons/io";
 
-export default function CurrencyMenu({ data, color, modal = false }) {
+export default function CurrencyMenu({ data, color, modal = false, lang = 'tr' }) {
     const { currencyType, setCurrencyType } = useGlobalContext();
     const menuRef = useRef(null);
     const [menuActive, setMenuActive] = useState(false)
@@ -56,7 +56,7 @@ export default function CurrencyMenu({ data, color, modal = false }) {
                             onClick={(e) => e.stopPropagation()}
                         >
                             <h3 className="text-lg font-semibold text-black mb-4 text-center">
-                                Para Birimi Seçiniz
+                                {lang === 'tr' ? "Para Birimi Seçiniz" : "Select Currency"}
                             </h3>
 
                             <div className="space-y-2">
