@@ -35,7 +35,7 @@ export default function Modal1({ data, theme, globalVariables, languages, settin
 
     setWifiCopied(true);
     if (!wifiCopied) {
-      Alert({ message: 'Şifre kopyalandı', title: '', type: 'success', time: 1000 })
+      Alert({ message: language === 'tr' ? 'Şifre kopyalandı' : 'Password copied', title: '', type: 'success', time: 1000 })
     }
     try {
       if (navigator.clipboard) {

@@ -243,7 +243,7 @@ export default async function Page({ params, searchParams }) {
                       {
                         companyDetail?.data?.[0]?.buttons?.find((itm) => itm.type === 'wifi') &&
                         <div className="mt-[12px]">
-                          <WifiButton variant={2} color={"FFF"} bgColor={`#${companyDetail?.data?.[0]?.theme?.primaryColor}`} data={companyDetail?.data?.[0]?.buttons?.find((itm) => itm.type === 'wifi')} />
+                          <WifiButton lang={lang} variant={2} color={"FFF"} bgColor={`#${companyDetail?.data?.[0]?.theme?.primaryColor}`} data={companyDetail?.data?.[0]?.buttons?.find((itm) => itm.type === 'wifi')} />
                         </div>
                       }
                     </div>

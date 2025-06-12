@@ -2,13 +2,13 @@
 import React, { useState } from 'react'
 import Alert from '../alert';
 
-export default function WifiButton({ data, color, variant = 1, bgColor = '' }) {
+export default function WifiButton({ data, color, variant = 1, bgColor = '', lang = 'tr' }) {
     const [wifiCopied, setWifiCopied] = useState(false)
 
     const handleCopy = async (textToCopy) => {
         setWifiCopied(true);
         if (!wifiCopied) {
-            Alert({ message: 'Şifre kopyalandı', title: '', type: 'success', time: 1000 })
+            Alert({ message: lang === 'tr' ? 'Şifre kopyalandı' : 'Password copied', title: '', type: 'success', time: 1000 })
         }
         try {
             if (navigator.clipboard) {
