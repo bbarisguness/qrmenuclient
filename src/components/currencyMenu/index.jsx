@@ -78,7 +78,7 @@ export default function CurrencyMenu({ data, color, modal = false, lang = 'tr' }
                                 onClick={() => setMenuActive(false)}
                                 className="mt-4 w-full bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded transition-colors"
                             >
-                                Kapat
+                                {lang === 'tr' ? "Kapat" : "Close"}
                             </button>
                         </div>
                     </div>
