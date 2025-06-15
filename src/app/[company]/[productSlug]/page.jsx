@@ -136,8 +136,15 @@ export default async function Page({ params, searchParams }) {
                     <div className="w-full h-full">
                         <div>
                             <div className="w-full min-h-screen flex flex-col relative">
-                                <div>
+                                <div className="relative">
                                     <img className="h-[350px] object-cover w-full " src={`${product?.data?.image?.url ? product?.data?.image?.url : product?.data?.category?.company?.logo?.url}`} alt="" />
+                                    {
+                                        product?.data?.calorie &&
+                                        <div style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} className="absolute bottom-[20px] rounded-md right-[20px] bg-white p-2 text-[12px] font-semibold flex">
+                                            <img className="w-[16px] h-[16px]" src="/calories.png" alt="" />
+                                            <span className="ml-[6px]">{product?.data?.calorie} cal</span>
+                                        </div>
+                                    }
                                 </div>
                                 <div style={{ backgroundColor: '#ffffff', color: 'black' }} className="w-full grow h-full pt-[24px] px-[16px]">
                                     <div className="w-full  pb-[48px] rounded-tl-[24px] rounded-tr-[24px]">
@@ -159,23 +166,47 @@ export default async function Page({ params, searchParams }) {
                                             </div>
                                         </div>
                                         {
-                                            product?.data?.contents?.length > 0 &&
-                                            <div className="mt-[16px] flex flex-col gap-[24px]">
-                                                <span className="text-[24px]">
-                                                    {globalVariables?.data?.contentsText}
-                                                </span>
-                                                {
-                                                    product?.data?.contents?.map((itm, i) => {
-                                                        return (
-                                                            <div key={i}>
-                                                                <span>{itm?.name}</span>
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
+                                            product?.data?.contents?.length > 0 && (
+                                                <div className="mt-8">
+                                                    <span className="text-[20px] block mb-4">
+                                                        {globalVariables?.data?.contentsText || 'Ürün İçerikleri'}
+                                                    </span>
+                                                    <div className="flex flex-wrap gap-3">
+                                                        {
+                                                            product?.data?.contents?.map((itm, i) => (
+                                                                <div
+                                                                    key={i}
+                                                                    className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium shadow-sm hover:bg-gray-200 transition-all"
+                                                                >
+                                                                    {itm?.name}
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                            )
                                         }
-
+                                        {
+                                            product?.data?.allergens?.length > 0 && (
+                                                <div className="mt-6">
+                                                    <span className="text-[20px] block mb-4">
+                                                        {globalVariables?.data?.alergenText || 'Alerjen Uyarıları'}
+                                                    </span>
+                                                    <div className="flex flex-wrap gap-3">
+                                                        {
+                                                            product?.data?.allergens?.map((itm, i) => (
+                                                                <div
+                                                                    key={i}
+                                                                    className="px-4 py-2 bg-red-100 text-red-800 rounded-full text-sm font-medium shadow-sm hover:bg-red-200 transition-all"
+                                                                >
+                                                                    {itm?.name}
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
