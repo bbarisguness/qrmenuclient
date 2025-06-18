@@ -3,7 +3,7 @@
 import { useGlobalContext } from '@/context/GlobalContext';
 import { useEffect, useState } from 'react';
 
-export default function ProductPrice2({ price, list = true, tcmb, fontSize = '', fontWeight = '' }) {
+export default function ProductPrice2({ price, discount = 0, list = true, tcmb, fontSize = '', fontWeight = '' }) {
     const [loading, setLoading] = useState(true)
     const { currencyType } = useGlobalContext();
     const [exchangeRates, setExchangeRates] = useState({});
@@ -49,9 +49,18 @@ export default function ProductPrice2({ price, list = true, tcmb, fontSize = '',
                 list ?
                     <span className="font-Poppins text-[12px] text-[#1374E0] mr-[18px]">{convertedPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {currencyType === 'tl' ? 'TL' : currencyType === 'usd' ? 'USD' : currencyType === 'gbp' ? 'GBP' : currencyType === 'eur' ? 'EUR' : 'TL'}</span>
                     :
-                    <span style={{ fontSize: fontSize ? fontSize : '', fontWeight: fontWeight ? fontWeight : '' }} className='text-[13px] ml-[2px]'>
-                        {convertedPrice?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {currencyType === 'tl' ? 'TL' : currencyType === 'usd' ? 'USD' : currencyType === 'gbp' ? 'GBP' : currencyType === 'eur' ? 'EUR' : 'TL'}
-                    </span>
+                    <>
+                        {
+                            discount > 0 &&
+                            <span className='text-[14px] whitespace-nowrap mr-[6px] font-medium text-[#9e9e9e] decoration-th [text-decoration:line-through] ![text-decoration-color:#d32f2f] inline-block'>
+                                {convertedPrice?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {currencyType === 'tl' ? 'TL' : currencyType === 'usd' ? 'USD' : currencyType === 'gbp' ? 'GBP' : currencyType === 'eur' ? 'EUR' : 'TL'}
+                            </span>
+                        }
+                        <span style={{ fontSize: fontSize ? fontSize : '', fontWeight: fontWeight ? fontWeight : '' }} className='text-[13px] whitespace-nowrap ml-[2px]'>
+                            {discount > 0 ? (convertedPrice - ((convertedPrice * discount) / 100))?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : convertedPrice?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {currencyType === 'tl' ? 'TL' : currencyType === 'usd' ? 'USD' : currencyType === 'gbp' ? 'GBP' : currencyType === 'eur' ? 'EUR' : 'TL'}
+                        </span>
+                    </>
+
 
             }
         </>

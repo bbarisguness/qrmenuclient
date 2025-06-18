@@ -154,8 +154,8 @@ export default async function Page({ params, searchParams }) {
                                                     <span className="text-[24px] whitespace-pre-wrap word-break max-w-[55%]">
                                                         {product?.data?.name}
                                                     </span>
-                                                    <span className="text-[24px]">
-                                                        <ProductPrice2 fontWeight={700} fontSize={"24px"} tcmb={tcmb} price={product?.data?.price} list={false} />
+                                                    <span className="text-[24px] text-right">
+                                                        <ProductPrice2 discount={product?.data?.discount || 0} fontWeight={700} fontSize={"24px"} tcmb={tcmb} price={product?.data?.price} list={false} />
                                                     </span>
                                                 </div>
                                                 <div>
