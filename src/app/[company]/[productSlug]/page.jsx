@@ -2,6 +2,7 @@ import BackButton from "@/components/backButton";
 import CategoryButton from "@/components/categoryButton";
 import ProductPrice from "@/components/productPrice";
 import ProductPrice2 from "@/components/productPrice2";
+import ProductPrice3 from "@/components/productPrice3";
 import { SideMenu } from "@/components/sideMenu/SideMenu";
 import { getCategoriesByCompanySlug } from "@/services/categoryService";
 import { getGlobalVariables } from "@/services/globalVariablesService";
@@ -165,6 +166,28 @@ export default async function Page({ params, searchParams }) {
                                                 </div>
                                             </div>
                                         </div>
+                                        {
+                                            product?.data?.portions?.length > 0 && (
+                                                <div className="mt-8">
+                                                    <span className="text-[20px] block mb-4">
+                                                        {globalVariables?.data?.portionText || 'Porsiyonlar'}
+                                                    </span>
+                                                    <div className="flex flex-col gap-5">
+                                                        {
+                                                            product?.data?.portions?.map((itm, i) => (
+                                                                <div key={i}>
+                                                                    <span>{itm?.name}</span>
+                                                                    {/* <span className="p-[8px] ml-[.5rem] bg-[#f0443820] rounded-[8px] text-[13px] font-semibold text-[#f04438]">
+                                                                        {itm?.price}
+                                                                    </span> */}
+                                                                    <ProductPrice3 discount={product?.data?.discount || 0} fontWeight={700} fontSize={"24px"} tcmb={tcmb} price={itm?.price} list={false} />
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
                                         {
                                             product?.data?.contents?.length > 0 && (
                                                 <div className="mt-8">

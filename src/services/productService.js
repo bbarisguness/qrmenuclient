@@ -9,7 +9,7 @@ async function getProductsByCategorySlug({ slug, company, lang = "tr" }) {
 }
 
 async function getProductById({ id, company, lang = 'tr' }) {
-  const response = await fetch(`${apiUrl}/products/${id}?company=${company}&populate[category][populate][company][populate][0]=logo&populate[category][populate][company][populate][1]=theme&populate[image][fields][0]=*&populate[contents][sort][0]=line:asc&populate[allergens][sort][0]=line:asc&locale=${lang}`, {
+  const response = await fetch(`${apiUrl}/products/${id}?company=${company}&populate[category][populate][company][populate][0]=logo&populate[category][populate][company][populate][1]=theme&populate[image][fields][0]=*&populate[contents][sort][0]=line:asc&populate[portions][sort][0]=line:asc&populate[allergens][sort][0]=line:asc&locale=${lang}`, {
     cache: 'no-store'
   })
   const data = await response.json()
