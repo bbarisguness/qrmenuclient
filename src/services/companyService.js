@@ -8,4 +8,14 @@ async function getCompanyHome({ slug, lang = 'tr' }) {
     return data
 }
 
-export { getCompanyHome }
+async function getLastUpdate({ id }) {
+    const response = await fetch(`${apiUrl}/companies/lastUpdate/${id}`, {
+        method: 'POST',
+        cache: 'no-store'
+    })
+    const data = await response.json()
+    return data
+}
+
+
+export { getCompanyHome, getLastUpdate }

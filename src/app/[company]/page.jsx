@@ -1,4 +1,4 @@
-import { getCompanyHome } from "@/services/companyService";
+import { getCompanyHome, getLastUpdate } from "@/services/companyService";
 import Modal1 from "@/components/modal-1/modal1";
 import { notFound } from "next/navigation";
 import { getGlobalVariables } from "@/services/globalVariablesService";
@@ -195,6 +195,7 @@ export default async function Page({ params, searchParams }) {
       </>
     );
   } else if (companyDetail?.data?.[0]?.themeVersion === "theme3") {
+    const lastUpdate = await getLastUpdate({id: companyDetail?.data?.[0]?.documentId})
     return (
       <>
         <div className="min-h-[100dvh] h-full m-auto w-full">
@@ -249,6 +250,13 @@ export default async function Page({ params, searchParams }) {
                     </div>
                   </div>
                   <div style={{ marginTop: 'auto' }} className="flex flex-col items-center gap-[48px]">
+                    {
+                      companyDetail?.data?.[0]?.vatMessage &&
+                      <div className="text-center">
+                        <div className="text-white font-semibold">{globalVariables?.data?.vatIncludedText}</div>
+                        <div className="text-white font-semibold mt-0">{globalVariables?.data?.updateDateText} {lastUpdate?.lastUpdate}</div>
+                      </div>
+                    }
                     <div className="flex gap-5 mb-[10px]">
                       {
                         companyDetail?.data?.[0]?.buttons?.map((itm, i) => {
