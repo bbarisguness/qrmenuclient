@@ -1,0 +1,172 @@
+@keyframes bounceInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(2000px);
+    }
+    
+    60% {
+        opacity: 1;
+        transform: translateY(-30px);
+    }
+
+    80% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-2000px);
+    }
+    
+    60% {
+        opacity: 1;
+        transform: translateY(30px);
+    }
+
+    80% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceUpIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-2000px);
+    }
+    
+    60% {
+        opacity: 1;
+        transform: translateY(-30px);
+    }
+
+    80% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+.container {
+    background-image: url('/404-bg.jpg');
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.container .content {
+    min-width: 1140px;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container .content .man1 {
+    left: calc(50% + 230px);
+    position: absolute;
+    height: calc(100% - 160px);
+    top: 50%;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container .content .man2 {
+    right: calc(50% + 230px);
+    position: absolute;
+    height: calc(100% - 160px);
+    top: 50%;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container .content .man1 .man1Anim {
+    visibility: visible;
+    animation-duration: 0.5s;
+    animation-name: bounceUpIn;
+    max-height: 100%;
+}
+
+.container .content .man2 .man2Anim {
+    visibility: visible;
+    animation-duration: 0.5s;
+    animation-name: bounceInUp;
+    max-height: 100%;
+}
+
+.container .content .errorContent {
+    visibility: visible;
+    animation-duration: 0.7s;
+    animation-name: bounceInDown;
+    text-align: center;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.container .content .errorContent .text {
+    margin: 0;
+    font-size: 230px;
+    line-height: 1;
+    text-shadow: 1.21px 4.851px 13.44px rgba(25,83,200,.37);
+    color: white;
+    margin-bottom: 60px;
+    font-weight: 700;
+}
+
+.container .content .errorContent .subtitle{
+    color: white;
+    margin-bottom: 40px;
+    font-size: 36px;
+    line-height: 46px;
+    margin-top: -16px;
+}
+
+.container .content .errorContent .button{
+    border: none;
+    border-radius: 10px;
+    background: -webkit-linear-gradient(0deg,#e2906e 0,#e83a99 100%);
+    box-shadow: 2.419px 9.703px 12.48px .52px rgba(232,58,153,.5);
+    width: auto;
+    padding: 15px 45px;
+    color: white;
+    margin-top: 20px;
+    transition: all ease .3s;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 575px) {
+    .container .content .errorContent .text {
+        font-size: 130px;
+    }
+
+    .container .content .errorContent .subtitle{
+        font-size: 28px;
+    }
+}
