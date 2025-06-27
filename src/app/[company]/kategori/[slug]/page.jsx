@@ -29,8 +29,8 @@ export default async function Page({ params, searchParams }) {
     const { company } = await params
 
     const products = await getProductsByCategorySlug({ slug: slug, company: company, lang: lang })
-    const globalVariables = await getGlobalVariables({ lang: lang })
-
+    const globalVariables = await getGlobalVariables({ lang: lang })    
+    
 
     const tcmbRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/currency`);
     const tcmb = await tcmbRes.text();

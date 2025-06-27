@@ -1,7 +1,42 @@
+var qs = require('qs');
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 async function getCompanyHome({ slug, lang = 'tr' }) {
-    const response = await fetch(`${apiUrl}/companies?filters[slug][$eq]=${slug}&populate[buttons][sort][0]=line:asc&populate[logo][fields][0]=url&populate[theme][sort][0]=id:asc&populate[banner][fields][0]=url&populate[currencies][fields]=*&populate[localizations][fields][0]=locale&locale=${lang}`, {
+    const query = qs.stringify({
+        company: slug,
+        pagination: {
+            pageSize: 999,
+            page: 1
+        },
+        populate: {
+            logo: {
+                fields: ["url", "formats"]
+            },
+            buttons: {
+                sort: ["line:asc"]
+            },
+            theme: {
+                sort: ["id:asc"]
+            },
+            banner: {
+                fields: ["url", "formats"]
+            },
+            currencies: {
+                sort: ["id:asc"]
+            },
+            localizations: {
+                fields: ["locale"]
+            }
+        },
+        filters: {
+            slug: {
+                $eq: slug
+            }
+        },
+        locale: lang,
+    }, { encodeValuesOnly: true });
+
+    const response = await fetch(`${apiUrl}/companies?${query}`, {
         cache: 'no-store'
     })
     const data = await response.json()

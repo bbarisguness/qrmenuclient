@@ -1,7 +1,56 @@
+var qs = require('qs');
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 async function getProductsByCategorySlug({ slug, company, lang = "tr" }) {
-  const response = await fetch(`${apiUrl}/products?sort[0]=line:asc&category=${slug}&company=${company}&populate[image][fields][0]=*&populate[contents][sort][0]=line:asc&populate[category][populate][image][fields][0]=*&populate[category][populate][banner][fields][0]=*&populate[category][populate][company][populate][0]=logo&populate[category][populate][company][populate][1]=theme&populate[category][populate][company][populate][2]=localizations&populate[category][populate][company][populate][3]=currencies&populate[category][populate][company][populate][4]=buttons&pagination[pageSize]=999&pagination[page]=1&locale=${lang}`, {
+  const query = qs.stringify({
+    sort: ["line:asc"],
+    company: company,
+    category: slug,
+    pagination: {
+      pageSize: 999,
+      page: 1
+    },
+    populate: {
+      image: {
+        fields: ["url", "formats"]
+      },
+      contents: {
+        sort: ["line:asc"]
+      },
+      category: {
+        populate: {
+          image: {
+            fields: ["url", "formats"]
+          },
+          banner: {
+            fields: ["url", "formats"]
+          },
+          company: {
+            populate: {
+              logo: {
+                fields: ["url", "formats"]
+              },
+              theme: {
+                sort: ["id:asc"]
+              },
+              localizations: {
+                fields: ["locale"]
+              },
+              currencies: {
+                sort: ["id:asc"]
+              },
+              buttons: {
+                sort: ["id:asc"]
+              }
+            }
+          }
+        }
+      }
+    },
+    locale: lang,
+  }, { encodeValuesOnly: true });
+
+  const response = await fetch(`${apiUrl}/products?${query}`, {
     cache: 'no-store'
   })
   const data = await response.json()
@@ -9,7 +58,41 @@ async function getProductsByCategorySlug({ slug, company, lang = "tr" }) {
 }
 
 async function getProductById({ id, company, lang = 'tr' }) {
-  const response = await fetch(`${apiUrl}/products/${id}?company=${company}&populate[category][populate][company][populate][0]=logo&populate[category][populate][company][populate][1]=theme&populate[image][fields][0]=*&populate[contents][sort][0]=line:asc&populate[portions][sort][0]=line:asc&populate[allergens][sort][0]=line:asc&locale=${lang}`, {
+  const query = qs.stringify({
+    sort: ["line:asc"],
+    company: company,
+    populate: {
+      image: {
+        fields: ["url", "formats"]
+      },
+      contents: {
+        sort: ["line:asc"]
+      },
+      portions: {
+        sort: ["line:asc"]
+      },
+      allergens: {
+        sort: ["line:asc"]
+      },
+      category: {
+        populate: {
+          company: {
+            populate: {
+              logo: {
+                fields: ["url", "formats"]
+              },
+              theme: {
+                sort: ["id:asc"]
+              }
+            }
+          }
+        }
+      }
+    },
+    locale: lang,
+  }, { encodeValuesOnly: true });
+
+  const response = await fetch(`${apiUrl}/products/${id}?${query}`, {
     cache: 'no-store'
   })
   const data = await response.json()

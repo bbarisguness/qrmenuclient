@@ -1,7 +1,34 @@
+var qs = require('qs');
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 async function getCategoriesByCompanySlug({ slug, lang = "en" }) {
-    const response = await fetch(`${apiUrl}/categories?sort[0]=line:asc&company=${slug}&pagination[pageSize]=999&pagination[page]=1&populate[image][fields][0]=*&populate[company][populate][0]=logo&populate[company][populate][1]=theme&locale=${lang}`, {
+    const query = qs.stringify({
+        sort: ["line:asc"],
+        fields: ["name", "slug", "shortDescription", "longDescription", "line"],
+        company: slug,
+        pagination: {
+            pageSize: 999,
+            page: 1
+        },
+        populate: {
+            image: {
+                fields: ["url", "formats"]
+            },
+            company: {
+                populate: {
+                    logo: {
+                        fields: ["formats", "url"]
+                    },
+                    theme: {
+                        sort: ["id:asc"]
+                    }
+                }
+            }
+        },
+        locale: lang,
+    }, { encodeValuesOnly: true });
+
+    const response = await fetch(`${apiUrl}/categories?${query}`, {
         cache: 'no-store'
     })
     const data = await response.json()
@@ -9,7 +36,42 @@ async function getCategoriesByCompanySlug({ slug, lang = "en" }) {
 }
 
 async function getCategoriesByCompanySlug2({ slug, lang = "en" }) {
-    const response = await fetch(`${apiUrl}/categories?sort[0]=line:asc&company=${slug}&pagination[pageSize]=999&pagination[page]=1&populate[image][fields][0]=*&populate[company][populate][0]=logo&populate[products][sort][0]=line:asc&populate[products][populate][image][fields][0]=*&populate[company][populate][1]=theme&locale=${lang}`, {
+    const query = qs.stringify({
+        sort: ["line:asc"],
+        fields: ["name", "slug", "shortDescription", "longDescription", "line"],
+        company: slug,
+        pagination: {
+            pageSize: 999,
+            page: 1
+        },
+        populate: {
+            image: {
+                fields: ["url", "formats"]
+            },
+            products: {
+                sort: ["line:asc"],
+                fields: ["name", "price", "slug", "discount", "line", "locale"],
+                populate: {
+                    image: {
+                        fields: ["url", "formats"]
+                    }
+                }
+            },
+            company: {
+                populate: {
+                    logo: {
+                        fields: ["formats", "url"]
+                    },
+                    theme: {
+                        sort: ["id:asc"]
+                    }
+                }
+            }
+        },
+        locale: lang,
+    }, { encodeValuesOnly: true });
+
+    const response = await fetch(`${apiUrl}/categories?${query}`, {
         cache: 'no-store'
     })
     const data = await response.json()
