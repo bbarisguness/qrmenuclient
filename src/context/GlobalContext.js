@@ -7,7 +7,7 @@ const GlobalContext = createContext();
 
 export const useGlobalContext = () => useContext(GlobalContext);
 
-export const GlobalProvider = ({ children }) => {
+export const GlobalProvider = ({ children, defaultLang }) => {
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
@@ -33,7 +33,7 @@ export const GlobalProvider = ({ children }) => {
 
     useEffect(() => {
         const storedLang = localStorage.getItem('language');
-        const lang = storedLang ? JSON.parse(storedLang).name === path ? JSON.parse(storedLang).lang : 'tr' : 'tr';
+        const lang = storedLang ? JSON.parse(storedLang).name === path ? JSON.parse(storedLang).lang : defaultLang : defaultLang;
         localStorage.setItem('language', JSON.stringify({ name: path, lang: lang }));
         router.push(`?lang=${lang?.toString()}`);
         setLanguage(lang)
