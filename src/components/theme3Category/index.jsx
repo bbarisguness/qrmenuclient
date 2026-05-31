@@ -10,52 +10,43 @@ export default function Theme3Category({ categories, tcmb, lang }) {
     const [menu, setMenu] = useState(false)
     const [activeCategory, setActiveCategory] = useState("")
     const { grid, setGrid } = useGlobalContext();
-    // Create an object to store refs for each category
     const categoryRefs = useRef({});
-    // Ref for the horizontal menu container
     const menuContainerRef = useRef(null);
-    // Refs for menu items to track their positions
     const menuItemRefs = useRef({});
-    // Track the last scroll position to detect actual scrolling
     const lastScrollY = useRef(0);
-    // Track if component just mounted to avoid initial auto-scroll
     const justMounted = useRef(true);
+    // ✅ Stale closure'ı önlemek için ref
+    const activeCategoryRef = useRef("");
 
-    // Function to calculate active category based on scroll position
+    const updateActiveCategory = (id) => {
+        activeCategoryRef.current = id;
+        setActiveCategory(id);
+    };
+
     const calculateActiveCategory = () => {
         if (categories?.data) {
-            const scrollPosition = window.scrollY + 100; // Offset for better UX
-
-            // Check each category section's position
+            const scrollPosition = window.scrollY + 100;
             for (let i = categories.data.length - 1; i >= 0; i--) {
                 const category = categories.data[i];
                 const ref = categoryRefs.current[category.id];
-
                 if (ref && ref.current) {
                     const position = ref.current.offsetTop;
-
                     if (scrollPosition >= position) {
                         return category.id;
                     }
                 }
             }
-            // Default to first category if no match found
             return categories.data[0]?.id;
         }
         return "";
     };
 
-    // Initialize the active category based on current scroll position when data loads
     useEffect(() => {
         if (categories?.data?.length > 0) {
-            // Small delay to ensure DOM is ready
             setTimeout(() => {
                 const activeCat = calculateActiveCategory();
-                setActiveCategory(activeCat);
-                // lastScrollY.current = window.scrollY;
-                // console.log(menuItemRefs.current[activeCat].offsetLeft);
-                menuContainerRef.current.scrollLeft = menuItemRefs.current[activeCat].offsetLeft
-                // Mark as mounted after initial setup
+                updateActiveCategory(activeCat);
+                menuContainerRef.current.scrollLeft = menuItemRefs.current[activeCat]?.offsetLeft || 0;
                 setTimeout(() => {
                     justMounted.current = false;
                 }, 500);
@@ -63,27 +54,18 @@ export default function Theme3Category({ categories, tcmb, lang }) {
         }
     }, [categories]);
 
-    // Function to scroll menu to active category
     const scrollMenuToActiveCategory = (categoryId) => {
         const menuContainer = menuContainerRef.current;
         const menuItem = menuItemRefs.current[categoryId];
-
         if (menuContainer && menuItem) {
             const containerRect = menuContainer.getBoundingClientRect();
             const itemRect = menuItem.getBoundingClientRect();
-
-            // Calculate the position to center the item
             const scrollLeft = menuItem.offsetLeft - (containerRect.width / 2) + (itemRect.width / 2);
-
-            menuContainer.scrollTo({
-                left: scrollLeft,
-                behavior: 'smooth'
-            });
+            menuContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
         }
     };
 
     useEffect(() => {
-        // Create refs for all categories
         if (categories?.data) {
             categories.data.forEach(category => {
                 if (!categoryRefs.current[category.id]) {
@@ -93,42 +75,57 @@ export default function Theme3Category({ categories, tcmb, lang }) {
         }
 
         const handleScroll = () => {
-            // Show/hide menu based on scroll position
-            setMenu(window.scrollY > 300);
-
-            // Check if this is actual scrolling (not just page load/back button)
             const currentScrollY = window.scrollY;
+            setMenu(currentScrollY > 300);
+
             const actuallyScrolling = Math.abs(currentScrollY - lastScrollY.current) > 5;
             lastScrollY.current = currentScrollY;
 
-            // Check which category is currently visible
             const newActiveCategory = calculateActiveCategory();
-            if (newActiveCategory && activeCategory !== newActiveCategory) {
-                setActiveCategory(newActiveCategory);
-                // Only auto scroll menu if user is actually scrolling and component has been mounted for a while
+            // ✅ ref ile karşılaştır
+            if (newActiveCategory && activeCategoryRef.current !== newActiveCategory) {
+                updateActiveCategory(newActiveCategory);
                 if (actuallyScrolling && !justMounted.current) {
-                    setTimeout(() => {
-                        scrollMenuToActiveCategory(newActiveCategory);
-                    }, 100);
+                    setTimeout(() => scrollMenuToActiveCategory(newActiveCategory), 100);
                 }
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true }); // ✅ passive: mobil performans
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [categories, activeCategory]);
+    }, [categories]); // ✅ activeCategory bağımlılığı kaldırıldı
 
-    // Function to scroll to category when menu item is clicked
     const scrollToCategory = (categoryId) => {
         const ref = categoryRefs.current[categoryId];
         if (ref && ref.current) {
-            window.scrollTo({
-                top: ref.current.offsetTop - 70, // Offset for the fixed header
-                behavior: 'smooth',
-            });
-            setActiveCategory(categoryId);
+            const targetY = ref.current.offsetTop - 70;
+
+            // ✅ Menu'yü hemen aç
+            if (targetY > 300) {
+                setMenu(true);
+            }
+
+            // ✅ iOS'ta smooth scroll yerine requestAnimationFrame ile manuel scroll
+            const startY = window.scrollY;
+            const distance = targetY - startY;
+            const duration = 400;
+            let startTime = null;
+
+            const easeInOut = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+            const step = (timestamp) => {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                window.scrollTo(0, startY + distance * easeInOut(progress));
+                if (progress < 1) requestAnimationFrame(step);
+            };
+
+            requestAnimationFrame(step);
+            updateActiveCategory(categoryId);
         }
     };
+
 
     return (
         <>
