@@ -153,7 +153,7 @@ export default function Theme3Category({ categories, tcmb, lang }) {
                                 }}
                                 className='rounded-[8px] cursor-pointer text-[14px] flex gap-[12px] items-center min-w-fit border px-[12px] py-[2px] transition-colors duration-300'
                             >
-                                <span className='max-w-[150px] text-ellipsis overflow-hidden one-line break-all'>
+                                <span className='max-w-full text-ellipsis overflow-hidden one-line break-all'>
                                     {category?.name}
                                 </span>
                             </div>
@@ -182,7 +182,7 @@ export default function Theme3Category({ categories, tcmb, lang }) {
                                                     <img style={{ opacity: 100 }} className="!w-full !h-full object-cover duration-200" width={80} height={80} src={`${category?.image?.url ? photoFormatsDetect(category?.image, "thumbnail")?.url : categories?.data?.[0]?.company?.logo?.url}`} alt="" />
                                                 </div>
                                             </div>
-                                            <span className="max-w-[180px] text-ellipsis overflow-hidden one-line break-all">{category?.name}</span>
+                                            <span className="max-w-full text-ellipsis overflow-hidden one-line break-all">{category?.name}</span>
                                         </div>
                                     </div>
                                 )
